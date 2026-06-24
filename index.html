@@ -1,0 +1,656 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>海事两员考证备考指南 — 固体散装危险货物申报员</title>
+<style>
+* { margin: 0; padding: 0; box-sizing: border-box; }
+:root {
+  --bg: #f0f4f8;
+  --panel: #ffffff;
+  --text: #1a202c;
+  --muted: #718096;
+  --accent: #2b6cb0;
+  --accent-light: #ebf4ff;
+  --danger: #c53030;
+  --danger-light: #fff5f5;
+  --success: #276749;
+  --success-light: #f0fff4;
+  --warn: #975a16;
+  --warn-light: #fffff0;
+  --border: #e2e8f0;
+  --shadow: 0 1px 3px rgba(0,0,0,0.08);
+  --shadow-lg: 0 8px 24px rgba(0,0,0,0.1);
+  --radius: 12px;
+}
+body {
+  font-family: -apple-system, BlinkMacSystemFont, "PingFang SC", "Noto Sans SC", "Helvetica Neue", Arial, sans-serif;
+  background: var(--bg); color: var(--text); line-height: 1.75;
+  -webkit-font-smoothing: antialiased;
+}
+.container { max-width: 960px; margin: 0 auto; padding: 16px; }
+
+/* Hero */
+.hero {
+  background: linear-gradient(135deg, #1a365d 0%, #2b6cb0 50%, #3182ce 100%);
+  color: white; border-radius: var(--radius); padding: 36px 32px; margin-bottom: 24px;
+  box-shadow: var(--shadow-lg); position: relative; overflow: hidden;
+}
+.hero::after {
+  content: ''; position: absolute; top: -60px; right: -60px;
+  width: 200px; height: 200px; border-radius: 50%;
+  background: rgba(255,255,255,0.06);
+}
+.hero h1 { font-size: 26px; font-weight: 800; margin-bottom: 8px; letter-spacing: 0.5px; }
+.hero .sub { opacity: 0.85; font-size: 15px; margin-bottom: 20px; }
+.hero-stats { display: flex; gap: 16px; flex-wrap: wrap; }
+.hero-stat {
+  background: rgba(255,255,255,0.12); padding: 12px 18px; border-radius: 10px;
+  backdrop-filter: blur(10px); min-width: 120px;
+}
+.hero-stat .n { font-size: 24px; font-weight: 800; }
+.hero-stat .l { font-size: 12px; opacity: 0.8; margin-top: 2px; }
+
+/* Nav */
+.nav {
+  background: var(--panel); border-radius: var(--radius); padding: 12px 16px;
+  margin-bottom: 20px; box-shadow: var(--shadow);
+  display: flex; gap: 8px; flex-wrap: wrap; position: sticky; top: 8px; z-index: 100;
+}
+.nav a {
+  padding: 6px 14px; border-radius: 8px; text-decoration: none;
+  font-size: 13px; font-weight: 600; color: var(--muted);
+  border: 1px solid var(--border); transition: all 0.15s;
+  white-space: nowrap;
+}
+.nav a:hover { color: var(--accent); border-color: var(--accent); background: var(--accent-light); }
+
+/* Section */
+.section {
+  background: var(--panel); border-radius: var(--radius); padding: 28px;
+  margin-bottom: 20px; box-shadow: var(--shadow);
+}
+.section h2 {
+  font-size: 20px; font-weight: 700; margin-bottom: 20px;
+  padding-bottom: 10px; border-bottom: 2px solid var(--accent);
+  display: flex; align-items: center; gap: 10px;
+}
+.section h2 .icon { font-size: 22px; }
+.section h3 { font-size: 16px; font-weight: 700; margin: 20px 0 10px; color: var(--accent); }
+
+/* Table */
+table { width: 100%; border-collapse: collapse; margin: 12px 0; font-size: 14px; }
+th { background: #edf2f7; font-weight: 600; text-align: left; padding: 10px 14px; }
+td { padding: 10px 14px; border-bottom: 1px solid var(--border); }
+tr:hover td { background: #f7fafc; }
+
+/* Card grid */
+.cards { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 14px; margin: 12px 0; }
+.card {
+  border: 1px solid var(--border); border-radius: 10px; padding: 18px;
+  transition: all 0.15s;
+}
+.card:hover { border-color: var(--accent); box-shadow: var(--shadow); }
+.card-title { font-weight: 700; font-size: 15px; margin-bottom: 6px; }
+.card-meta { font-size: 12px; color: var(--muted); margin-bottom: 8px; }
+.card-body { font-size: 13px; line-height: 1.7; }
+
+/* Badge */
+.badge {
+  display: inline-block; font-size: 11px; font-weight: 700; padding: 2px 8px;
+  border-radius: 4px; margin-right: 4px;
+}
+.badge-master { background: #c53030; color: white; }
+.badge-familiar { background: #d69e2e; color: white; }
+.badge-understand { background: #38a169; color: white; }
+.badge-free { background: #276749; color: white; }
+.badge-paid { background: #975a16; color: white; }
+.badge-app { background: #2b6cb0; color: white; }
+.badge-web { background: #6b46c1; color: white; }
+.badge-offline { background: #718096; color: white; }
+
+/* Alert */
+.alert {
+  padding: 14px 18px; border-radius: 10px; margin: 14px 0;
+  font-size: 14px; line-height: 1.7;
+}
+.alert-danger { background: var(--danger-light); border-left: 4px solid var(--danger); }
+.alert-success { background: var(--success-light); border-left: 4px solid var(--success); }
+.alert-warn { background: var(--warn-light); border-left: 4px solid #d69e2e; }
+.alert-info { background: var(--accent-light); border-left: 4px solid var(--accent); }
+
+/* Timeline */
+.timeline { position: relative; padding-left: 28px; margin: 16px 0; }
+.timeline::before {
+  content: ''; position: absolute; left: 10px; top: 4px; bottom: 4px;
+  width: 2px; background: var(--accent);
+}
+.tl-item { position: relative; margin-bottom: 20px; }
+.tl-item::before {
+  content: ''; position: absolute; left: -22px; top: 6px;
+  width: 10px; height: 10px; border-radius: 50%;
+  background: var(--accent); border: 2px solid white;
+  box-shadow: 0 0 0 2px var(--accent);
+}
+.tl-title { font-weight: 700; font-size: 15px; }
+.tl-desc { font-size: 13px; color: var(--muted); margin-top: 4px; }
+.tl-detail { font-size: 13px; margin-top: 6px; line-height: 1.7; }
+
+/* Progress bar */
+.progress-bar { background: #e2e8f0; border-radius: 6px; height: 8px; margin: 6px 0; }
+.progress-fill { height: 100%; border-radius: 6px; transition: width 0.3s; }
+
+/* List */
+ul.check { list-style: none; padding: 0; }
+ul.check li { padding: 4px 0 4px 24px; position: relative; font-size: 14px; }
+ul.check li::before { content: '✓'; position: absolute; left: 0; color: var(--success); font-weight: 700; }
+ul.cross li::before { content: '✗'; color: var(--danger); }
+
+/* Links */
+a { color: var(--accent); text-decoration: none; }
+a:hover { text-decoration: underline; }
+
+/* Footer */
+.footer {
+  text-align: center; padding: 24px; color: var(--muted); font-size: 12px;
+}
+
+/* Responsive */
+@media (max-width: 640px) {
+  .container { padding: 10px; }
+  .hero { padding: 24px 20px; }
+  .hero h1 { font-size: 20px; }
+  .section { padding: 20px 16px; }
+  .nav { position: static; }
+  .nav a { font-size: 12px; padding: 5px 10px; }
+  .hero-stats { gap: 8px; }
+  .hero-stat { min-width: 100px; padding: 8px 12px; }
+  .hero-stat .n { font-size: 20px; }
+  table { font-size: 12px; }
+  th, td { padding: 8px 10px; }
+}
+</style>
+</head>
+<body>
+
+<div class="container">
+
+<!-- Hero -->
+<div class="hero" id="top">
+  <h1>海事「两员」考证备考指南</h1>
+  <div class="sub">船载危险货物申报员 & 集装箱装箱现场检查员 | 聚焦固体散装方向</div>
+  <div class="hero-stats">
+    <div class="hero-stat"><div class="n">80</div><div class="l">合格线（满分100）</div></div>
+    <div class="hero-stat"><div class="n">90min</div><div class="l">单科考试时长</div></div>
+    <div class="hero-stat"><div class="n">~20%</div><div class="l">整体通过率</div></div>
+    <div class="hero-stat"><div class="n">0元</div><div class="l">报名考试费用</div></div>
+  </div>
+</div>
+
+<!-- Nav -->
+<div class="nav">
+  <a href="#overview">考试概述</a>
+  <a href="#subjects">科目与题型</a>
+  <a href="#schedule">时间安排</a>
+  <a href="#registration">报名流程</a>
+  <a href="#difficulty">难度分析</a>
+  <a href="#prep">备考攻略</a>
+  <a href="#resources">资源推荐</a>
+  <a href="#tips">过来人心得</a>
+  <a href="#sources">信息来源</a>
+</div>
+
+<!-- 1. 考试概述 -->
+<div class="section" id="overview">
+  <h2><span class="icon">📋</span> 考试概述</h2>
+  <p>「两员」= <strong>船载危险货物申报员</strong> + <strong>集装箱装箱现场检查员</strong>，是从事水路危险货物运输的法定从业资格，由交通运输部海事局统一组织考核。</p>
+
+  <h3>基本信息</h3>
+  <table>
+    <tr><th style="width:160px">项目</th><th>说明</th></tr>
+    <tr><td>考试全称</td><td>从事船舶载运危险货物进出港口申报人员和集装箱装箱现场检查人员从业资格考核</td></tr>
+    <tr><td>主管部门</td><td>交通运输部海事局，各直属/省级海事局组织实施</td></tr>
+    <tr><td>考试形式</td><td>计算机闭卷机考，全国统一命题、统一评分标准</td></tr>
+    <tr><td>考试频次</td><td>每年 2 次（通常下半年 9-11 月，上半年极少安排）</td></tr>
+    <tr><td>考试费用</td><td><strong>免费</strong>，不收取任何考试费</td></tr>
+    <tr><td>证书效力</td><td>全国通用，无有效期，需参加继续教育记分管理</td></tr>
+    <tr><td>报名条件</td><td>年满18周岁、中国国籍、完全民事行为能力，无学历/经验门槛</td></tr>
+    <tr><td>取证要求</td><td>考试合格后，首次取证需提供 <strong>3 个月同单位实习证明</strong></td></tr>
+    <tr><td>个税抵扣</td><td>取得证书当年可抵扣个税 <strong>3,600 元</strong>（继续教育专项扣除）</td></tr>
+  </table>
+
+  <div class="alert alert-info">
+    <strong>法规依据：</strong>《危险货物水路运输从业人员考核和从业资格管理规定》（交通运输部令）、《船载危险货物申报员和集装箱装箱现场检查员管理办法》
+  </div>
+</div>
+
+<!-- 2. 科目与题型 -->
+<div class="section" id="subjects">
+  <h2><span class="icon">📝</span> 考试科目与题型</h2>
+
+  <h3>四个独立科目（可单报或多科联报）</h3>
+  <table>
+    <tr><th>科目</th><th>类型</th><th>适合人群</th><th>难度</th></tr>
+    <tr><td><strong>包装危险货物申报</strong></td><td>申报员</td><td>包装危货运输企业、货代</td><td>较难</td></tr>
+    <tr>
+      <td><strong>散装固体危险货物申报</strong> ⭐</td><td>申报员</td>
+      <td>煤炭、矿砂、铝土、化肥、谷物散货码头/货代/船代</td><td>中等</td>
+    </tr>
+    <tr><td><strong>散装液体危险货物申报</strong></td><td>申报员</td><td>油船、化学品船、液化气体运输</td><td>最难</td></tr>
+    <tr><td><strong>集装箱装箱检查</strong></td><td>检查员</td><td>集装箱危货装箱作业单位</td><td>较易</td></tr>
+  </table>
+
+  <div class="alert alert-warn">
+    <strong>注意：</strong>各科独立取证，成绩长期有效。单科不及格可在下一期仅重考该科，已通过科目无需重考。
+  </div>
+
+  <h3>题型结构（各科统一）</h3>
+  <table>
+    <tr><th>题型</th><th>题数</th><th>分值</th><th>备注</th></tr>
+    <tr><td>单选题</td><td>40 题</td><td>40 分（每题 1 分）</td><td>基础分，务必拿满</td></tr>
+    <tr><td>判断题</td><td>30 题</td><td>15 分（每题 0.5 分）</td><td>注意文字陷阱："可以/应当/必须/禁止"</td></tr>
+    <tr><td>多选题</td><td>5 题</td><td>15 分（每题 3 分）</td><td><strong>多选、少选、错选均 0 分</strong>，失分重灾区</td></tr>
+    <tr><td>案例/判例题</td><td>2 题</td><td>30 分（每题 15 分）</td><td>需引用具体法规条款，决定能否上 80</td></tr>
+    <tr><th>合计</th><th>77 题</th><th>100 分</th><th>80 分合格，90 分钟作答</th></tr>
+  </table>
+
+  <div class="alert alert-danger">
+    <strong>合格线是 80 分，不是 60 分！</strong>这是最大门槛。多选题和案例题是关键——多选容错极低（5题×3分=15分），案例题需写法规依据（2题×15分=30分）。
+  </div>
+</div>
+
+<!-- 3. 时间安排 -->
+<div class="section" id="schedule">
+  <h2><span class="icon">📅</span> 考试时间安排</h2>
+
+  <h3>2025 年安排（已公布）</h3>
+  <table>
+    <tr><th></th><th>第一期</th><th>第二期</th></tr>
+    <tr><td><strong>报名时间</strong></td><td>2025-09-12 ~ 09-19</td><td>2025-11-04 ~ 11-11</td></tr>
+    <tr><td><strong>考试时间</strong></td><td>2025-09-28、29 日</td><td>2025-11-20、21 日</td></tr>
+  </table>
+
+  <h3>每日考试场次</h3>
+  <table>
+    <tr><th>时间</th><th>科目</th></tr>
+    <tr><td>第一天 09:30 - 11:00</td><td>包装危险货物申报</td></tr>
+    <tr><td>第一天 14:00 - 15:30</td><td>集装箱装箱检查</td></tr>
+    <tr><td>第二天 09:30 - 11:00</td><td>散装液体申报</td></tr>
+    <tr><td>第二天 14:00 - 15:30</td><td><strong>散装固体申报</strong> ⭐</td></tr>
+  </table>
+
+  <h3>2026 年预测</h3>
+  <div class="alert alert-info">
+    截至 2026-06-24，海事局尚未发布 2026 年度考核通告。根据 2024-2025 年规律，预计：
+    <ul style="margin-top:8px;padding-left:20px">
+      <li><strong>第一批：</strong>9 月上旬报名 → 9 月底考试</li>
+      <li><strong>第二批：</strong>11 月初报名 → 11 月下旬考试</li>
+    </ul>
+    <strong>获取通知渠道：</strong>海事局官网 → 通知公告 → 危管防污栏目 / 海事一网通办平台 / 各直属海事局公众号
+  </div>
+</div>
+
+<!-- 4. 报名流程 -->
+<div class="section" id="registration">
+  <h2><span class="icon">🖥️</span> 报名流程</h2>
+
+  <div class="timeline">
+    <div class="tl-item">
+      <div class="tl-title">1. 注册账号</div>
+      <div class="tl-detail">登录 <a href="https://zwfw.msa.gov.cn" target="_blank">海事一网通办平台</a>（zwfw.msa.gov.cn），注册个人账号</div>
+    </div>
+    <div class="tl-item">
+      <div class="tl-title">2. 网上报名</div>
+      <div class="tl-detail">在通告规定的报名窗口期内提交报名申请，可选择单科或多科联报。选择就近海事辖区考点。</div>
+    </div>
+    <div class="tl-item">
+      <div class="tl-title">3. 资格审核</div>
+      <div class="tl-detail">海事局在线审核（年龄、国籍等基本条件），审核通过后方可参加考试。无学历和工作经验要求。</div>
+    </div>
+    <div class="tl-item">
+      <div class="tl-title">4. 打印准考证</div>
+      <div class="tl-detail">审核通过后在平台下载打印准考证，携带至考场。</div>
+    </div>
+    <div class="tl-item">
+      <div class="tl-title">5. 参加机考</div>
+      <div class="tl-detail">按准考证时间、地点参加闭卷计算机考试。</div>
+    </div>
+    <div class="tl-item">
+      <div class="tl-title">6. 成绩公布</div>
+      <div class="tl-detail">考核结束后 20 个工作日内公布合格名单。对结果有异议可在 5 个工作日内申请复查。</div>
+    </div>
+    <div class="tl-item">
+      <div class="tl-title">7. 申领证书</div>
+      <div class="tl-detail">合格后提供 <strong>3 个月同单位实习证明</strong>，即可申领从业资格证书。证书全国通用。</div>
+    </div>
+  </div>
+</div>
+
+<!-- 5. 难度分析 -->
+<div class="section" id="difficulty">
+  <h2><span class="icon">📊</span> 难度分析</h2>
+
+  <h3>各科难度排序（由易到难）</h3>
+  <div style="margin:16px 0">
+    <div style="display:flex;align-items:center;gap:12px;margin:10px 0">
+      <div style="width:120px;font-size:13px;font-weight:600;text-align:right">集装箱装箱</div>
+      <div class="progress-bar" style="flex:1"><div class="progress-fill" style="width:45%;background:#38a169"></div></div>
+      <div style="width:40px;font-size:12px;color:var(--muted)">较易</div>
+    </div>
+    <div style="display:flex;align-items:center;gap:12px;margin:10px 0">
+      <div style="width:120px;font-size:13px;font-weight:600;text-align:right">包装申报</div>
+      <div class="progress-bar" style="flex:1"><div class="progress-fill" style="width:60%;background:#d69e2e"></div></div>
+      <div style="width:40px;font-size:12px;color:var(--muted)">中等</div>
+    </div>
+    <div style="display:flex;align-items:center;gap:12px;margin:10px 0">
+      <div style="width:120px;font-size:13px;font-weight:600;text-align:right;color:var(--accent)">散装固体 ⭐</div>
+      <div class="progress-bar" style="flex:1"><div class="progress-fill" style="width:68%;background:#dd6b20"></div></div>
+      <div style="width:40px;font-size:12px;color:var(--muted)">中偏难</div>
+    </div>
+    <div style="display:flex;align-items:center;gap:12px;margin:10px 0">
+      <div style="width:120px;font-size:13px;font-weight:600;text-align:right">散装液体</div>
+      <div class="progress-bar" style="flex:1"><div class="progress-fill" style="width:85%;background:#c53030"></div></div>
+      <div style="width:40px;font-size:12px;color:var(--muted)">最难</div>
+    </div>
+  </div>
+
+  <h3>通过率数据</h3>
+  <table>
+    <tr><th>数据来源</th><th>通过率</th><th>备注</th></tr>
+    <tr><td>浙江海事局 2023 年第二次</td><td>14.7%（150/1019 人次）</td><td>官方公布</td></tr>
+    <tr><td>全国整体单科均值</td><td>20% ~ 30%</td><td>各地有差异</td></tr>
+    <tr><td>系统备考考生</td><td>~50%</td><td>刷题+吃透指南</td></tr>
+  </table>
+
+  <h3>散装固体难点分析</h3>
+  <ul class="check" style="margin:12px 0">
+    <li><strong>多选题容错极低：</strong>5题×3分=15分，多选/少选/错选均0分，是最大失分点</li>
+    <li><strong>案例题需引条款：</strong>不写法规依据就没分，"结论+法规名称+条款号"三步答题</li>
+    <li><strong>易流态化判定：</strong>A组货物含水率、TML（适运水分极限）、FMP（流动水分点）是必考</li>
+    <li><strong>法规数字易混：</strong>申报时限、禁运条件、隔离要求、应急处置细节记忆量大</li>
+    <li><strong>公共基础占比约30%：</strong>纯背诵（14部法规条文），不背就丢分</li>
+  </ul>
+</div>
+
+<!-- 6. 备考攻略 -->
+<div class="section" id="prep">
+  <h2><span class="icon">📚</span> 散装固体备考攻略</h2>
+
+  <h3>复习范围（只看这些）</h3>
+  <div class="alert alert-success">
+    <strong>唯一官方资料：</strong>《两员考核复习指南 2025 版》（海事局官网免费下载），散装固体只需看：
+    <ul style="margin-top:6px;padding-left:20px">
+      <li>第一部分：公共基础（14部国际公约+国内法规 + 申报员权利义务 + 申报要求）</li>
+      <li>第二部分：固体散装货物运输（IMSBC 规则核心内容）</li>
+      <li>第三部分：危险货物事故应急</li>
+    </ul>
+    <strong>不需要看包装和液体章节！</strong>节省大量时间。
+  </div>
+
+  <h3>核心法规清单</h3>
+  <table>
+    <tr><th>法规</th><th>重要度</th><th>重点内容</th></tr>
+    <tr><td>《国际海运固体散装货物规则》(IMSBC)</td><td><span class="badge badge-master">掌握</span></td><td>A/B/C组分类、TML/FMP、平舱、通风、采样、保安</td></tr>
+    <tr><td>《海运固体散装货物安全监督管理规定》</td><td><span class="badge badge-master">掌握</span></td><td>全文，申报实务核心法规</td></tr>
+    <tr><td>《船舶载运危险货物安全监督管理规定》</td><td><span class="badge badge-master">掌握</span></td><td>全文，申报时限、审批、法律责任</td></tr>
+    <tr><td>《中华人民共和国海上交通安全法》</td><td><span class="badge badge-familiar">熟悉</span></td><td>第1/5/8/9/10章相关条文</td></tr>
+    <tr><td>《两员管理办法》</td><td><span class="badge badge-master">掌握</span></td><td>全文（权利义务、考核管理）</td></tr>
+    <tr><td>《海洋环境保护法》</td><td><span class="badge badge-familiar">熟悉</span></td><td>防污染相关章节</td></tr>
+    <tr><td>GB 40558《海运固体散装货物安全技术要求》</td><td><span class="badge badge-familiar">熟悉</span></td><td>国标配套</td></tr>
+    <tr><td>《国际海上人命安全公约》SOLAS</td><td><span class="badge badge-understand">了解</span></td><td>第VI/VII章，散装货物运输</td></tr>
+  </table>
+
+  <h3>散装固体核心知识卡片</h3>
+  <div class="cards">
+    <div class="card">
+      <div class="card-title">A/B/C 组分类</div>
+      <div class="card-body">
+        <strong>A组</strong>：易流态化或动态分离货物（含水率超TML禁运）<br>
+        <strong>B组</strong>：具有化学危害的货物<br>
+        <strong>C组</strong>：既不流态化也无化学危害<br>
+        <em>A+B 双属性货物同时满足两组要求</em>
+      </div>
+    </div>
+    <div class="card">
+      <div class="card-title">TML / FMP 关系</div>
+      <div class="card-body">
+        <strong>FMP</strong>（流动水分点）：货物开始流态化的含水率<br>
+        <strong>TML</strong>（适运水分极限）= FMP × 90%<br>
+        <strong>铁律：</strong>含水率 > TML → 禁止装运<br>
+        <em>必考计算/判断/案例题</em>
+      </div>
+    </div>
+    <div class="card">
+      <div class="card-title">平舱要求</div>
+      <div class="card-body">
+        <strong>静止角</strong>测定：确定货物自然堆积角度<br>
+        A组货物：<strong>必须平舱</strong>，不可形成V形槽<br>
+        黏性/非黏性散装货物特殊要求<br>
+        多层甲板船特殊规定
+      </div>
+    </div>
+    <div class="card">
+      <div class="card-title">申报实务</div>
+      <div class="card-body">
+        申报单填写要素<br>
+        适运证明（货主提供TML检测报告）<br>
+        船舶适装证书核查<br>
+        申报时限和审批流程<br>
+        <em>案例题常考场景</em>
+      </div>
+    </div>
+  </div>
+
+  <h3>三阶段复习法（25天通关计划）</h3>
+  <div class="timeline">
+    <div class="tl-item">
+      <div class="tl-title">阶段一：通读打基础（第 1-7 天）</div>
+      <div class="tl-desc">每天 1.5-2 小时</div>
+      <div class="tl-detail">
+        <ul class="check">
+          <li>精读《复习指南》散装固体对应章节（公共基础 + 固体散装 + 应急）</li>
+          <li>公共基础：危险货物/危化品/污染货物定义、九大类危险特性、申报基本要求、法律责任</li>
+          <li>固体散装专项：IMSBC 规则、A/B/C 组、TML/FMP、平舱、通风、装卸安全</li>
+          <li>标注「掌握」级考点，整理知识框架</li>
+        </ul>
+      </div>
+    </div>
+    <div class="tl-item">
+      <div class="tl-title">阶段二：刷题强化（第 8-18 天）</div>
+      <div class="tl-desc">每天 2 小时</div>
+      <div class="tl-detail">
+        <ul class="check">
+          <li>用题库 APP 刷散固专项章节题（重点攻多选题）</li>
+          <li>做历年真题套卷，模拟 90 分钟限时</li>
+          <li>整理错题本，按"法规条文""数字记忆""概念辨析"三类归纳</li>
+          <li>特别注意多选题：宁可少选也不要瞎蒙（少选也不得分，但建立选项排除意识）</li>
+        </ul>
+      </div>
+    </div>
+    <div class="tl-item">
+      <div class="tl-title">阶段三：冲刺突破（第 19-25 天）</div>
+      <div class="tl-desc">每天 2-3 小时</div>
+      <div class="tl-detail">
+        <ul class="check">
+          <li><strong>专攻案例题</strong>：按「违法判定 → 引用法规名称+条款号 → 结论」三步作答</li>
+          <li>默写：IMSBC 货物分组特征、A组检测程序、申报单证要素</li>
+          <li>回刷错题本，查漏补缺</li>
+          <li>考前模拟：完整套卷计时，确保稳定在 85 分以上</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- 7. 资源推荐 -->
+<div class="section" id="resources">
+  <h2><span class="icon">🔗</span> 备考资源推荐</h2>
+
+  <h3>官方资料（免费）</h3>
+  <div class="cards">
+    <div class="card">
+      <div class="card-title">复习指南 2025 版</div>
+      <div class="card-meta"><span class="badge badge-free">免费</span> PDF</div>
+      <div class="card-body">官方唯一指定复习材料。<a href="https://www.sh.msa.gov.cn/u/cms/www/202509/110858521757552332924.pdf" target="_blank">上海海事局下载</a> 或海事局官网"通知公告→危管防污"栏目</div>
+    </div>
+    <div class="card">
+      <div class="card-title">考核大纲 2025 版</div>
+      <div class="card-meta"><span class="badge badge-free">免费</span> DOCX</div>
+      <div class="card-body">明确考点和认知层次要求。<a href="https://www.mot.gov.cn/xiazaizhongxin/ziliaoxiazai/202506/P020250611525393458668.docx" target="_blank">交通运输部下载</a></div>
+    </div>
+    <div class="card">
+      <div class="card-title">海事一网通办</div>
+      <div class="card-meta"><span class="badge badge-free">免费</span> 平台</div>
+      <div class="card-body">报名、查成绩、下载准考证。<a href="https://zwfw.msa.gov.cn" target="_blank">zwfw.msa.gov.cn</a></div>
+    </div>
+  </div>
+
+  <h3>刷题 APP</h3>
+  <div class="cards">
+    <div class="card">
+      <div class="card-title">海运两员考试学知题</div>
+      <div class="card-meta"><span class="badge badge-app">APP</span> <span class="badge badge-paid">部分付费</span> iOS / Android</div>
+      <div class="card-body">散固独立题库 800+ 题，章节专项 + 真题套卷 + 全真模考 + 错题本。基础免费，完整需会员。<a href="https://sj.qq.com/appdetail/hyly.xuezhiti.app" target="_blank">应用宝</a></div>
+    </div>
+    <div class="card">
+      <div class="card-title">船载危险货物两员考试题峰</div>
+      <div class="card-meta"><span class="badge badge-app">APP</span> iOS</div>
+      <div class="card-body">贴合考纲，还原机考界面，支持离线刷题，考前冲刺卷定期更新。<a href="https://apps.apple.com/us/app/%E6%B5%B7%E8%BF%90%E4%B8%A4%E5%91%98%E8%80%83%E8%AF%95%E9%A2%98%E5%B3%B0/id6758197710" target="_blank">App Store</a></div>
+    </div>
+    <div class="card">
+      <div class="card-title">海员考证宝典</div>
+      <div class="card-meta"><span class="badge badge-app">APP</span> <span class="badge badge-paid">付费</span></div>
+      <div class="card-body">老牌海事题库，散固历年真题合集，配套文字网课讲解，手机+PC双端。<a href="https://hykzbd.com/" target="_blank">官网</a></div>
+    </div>
+    <div class="card">
+      <div class="card-title">易考吧在线题库</div>
+      <div class="card-meta"><span class="badge badge-web">网页端</span> <span class="badge badge-paid">付费</span></div>
+      <div class="card-body">散固两员 878 道题、8 套模拟卷，电脑/手机浏览器直接刷，可打印。<a href="https://www.etest8.com/nhcy/" target="_blank">etest8.com</a></div>
+    </div>
+  </div>
+
+  <h3>视频课程</h3>
+  <div class="cards">
+    <div class="card">
+      <div class="card-title">B站：散装固体真题讲解</div>
+      <div class="card-meta"><span class="badge badge-free">免费</span> 视频</div>
+      <div class="card-body">海事申报员散装固体科目考试真题分析讲解。<a href="https://www.bilibili.com/video/BV1oVDRYJEQ5/" target="_blank">BV1oVDRYJEQ5</a></div>
+    </div>
+    <div class="card">
+      <div class="card-title">合规化学 / 合规学苑</div>
+      <div class="card-meta"><span class="badge badge-paid">付费</span> 网课+题库+直播</div>
+      <div class="card-body">按新考纲更新，散装固体方向，含电子资料+直播答疑。<a href="http://www.hgmsds.com/" target="_blank">hgmsds.com</a></div>
+    </div>
+  </div>
+
+  <h3>线下培训</h3>
+  <div class="alert alert-info">
+    港口城市（上海、宁波、青岛、广州、天津、福州等）的海事定点培训机构提供面授课程：
+    <ul style="margin-top:6px;padding-left:20px">
+      <li><strong>基础长线班</strong>（5-7天）：零基础系统学法规+实操，约 4000-6500 元/人</li>
+      <li><strong>考前冲刺班</strong>（2-3天）：刷题+押题，约 2500 元/科目</li>
+      <li>含内部题库+机房模拟机考+简答题背诵讲义</li>
+    </ul>
+  </div>
+</div>
+
+<!-- 8. 过来人心得 -->
+<div class="section" id="tips">
+  <h2><span class="icon">💡</span> 过来人心得</h2>
+
+  <div class="cards" style="grid-template-columns: 1fr;">
+    <div class="card" style="border-left:4px solid var(--accent)">
+      <div class="card-title">不死记硬背，重在理解</div>
+      <div class="card-body">搞懂「为什么A组货物含水超TML会液化导致船舶倾覆」，比单纯背定义更能应对情景题。理解原理后，判断题和案例题都好做。</div>
+    </div>
+    <div class="card" style="border-left:4px solid var(--danger)">
+      <div class="card-title">案例题一定要写条款</div>
+      <div class="card-body">很多人挂科就因为案例题只写了结论没写法规依据。答题模板：<strong>违法判定 → 引用《XX法/规定》第X条 → 结论</strong>。平时练习就要抄写关键条文。</div>
+    </div>
+    <div class="card" style="border-left:4px solid #d69e2e">
+      <div class="card-title">警惕文字陷阱</div>
+      <div class="card-body">判断题常考「可以/应当/必须/禁止」的区别。例如「散装固体货物申报可在装货后补报」（错，需提前）。多选题注意「下列哪些<strong>不</strong>属于A组」。</div>
+    </div>
+    <div class="card" style="border-left:4px solid var(--success)">
+      <div class="card-title">多选题策略</div>
+      <div class="card-body">多选是最大失分点（多选少选错选均0分）。策略：确定的选，不确定的排除后再选。宁可花多点时间在这5道题上，15分的权重很高。</div>
+    </div>
+    <div class="card" style="border-left:4px solid #6b46c1">
+      <div class="card-title">用最新版资料</div>
+      <div class="card-body">2025版考纲散固新增了A组定义扩展（含动态分离）、新增《安全生产法》内容。旧题可能过时，务必按新版大纲复习。目前（2026年）仍沿用2025版。</div>
+    </div>
+  </div>
+
+  <h3>小红书高赞经验帖</h3>
+  <table>
+    <tr><th>标题</th><th>赞数</th><th>链接</th></tr>
+    <tr><td>海事两员考试心得</td><td>285</td><td><a href="https://www.xiaohongshu.com/explore/67cfc16d00000000290323e5" target="_blank">查看</a></td></tr>
+    <tr><td>两员证2025报名时间已出！</td><td>201</td><td><a href="https://www.xiaohongshu.com/explore/68bbda4d000000001b0221f1" target="_blank">查看</a></td></tr>
+    <tr><td>零基础自学"两员证"day 1</td><td>44</td><td><a href="https://www.xiaohongshu.com/explore/683a8be600000000220044ac" target="_blank">查看</a></td></tr>
+    <tr><td>求海事两员考试推荐题库</td><td>43</td><td><a href="https://www.xiaohongshu.com/explore/671eec6d0000000026037d48" target="_blank">查看</a></td></tr>
+    <tr><td>海事两员证书可抵个税3600元</td><td>25</td><td><a href="https://www.xiaohongshu.com/explore/69a82e55000000001a03421e" target="_blank">查看</a></td></tr>
+    <tr><td>危险货物从业资格证怎么考 需要准备什么</td><td>22</td><td><a href="https://www.xiaohongshu.com/explore/691d8f5e000000001d03e09b" target="_blank">查看</a></td></tr>
+    <tr><td>海运两员散装固体考试题</td><td>17</td><td><a href="https://www.xiaohongshu.com/explore/66d7d78f000000001e01a5e3" target="_blank">查看</a></td></tr>
+    <tr><td>两年考三次 可算是过了！</td><td>1</td><td><a href="https://www.xiaohongshu.com/explore/6932aa30000000001e011ef6" target="_blank">查看</a></td></tr>
+  </table>
+</div>
+
+<!-- 9. 信息来源 -->
+<div class="section" id="sources">
+  <h2><span class="icon">📎</span> 信息来源</h2>
+  <p style="font-size:13px;color:var(--muted);margin-bottom:12px">本页信息来自以下渠道的交叉验证（调研日期：2026-06-24）：</p>
+
+  <h3>官方渠道</h3>
+  <ul style="font-size:14px;padding-left:20px;margin:8px 0">
+    <li><a href="https://www.msa.gov.cn/page/article.do?articleId=66E9EBC5-F086-45DD-8395-0A638FCE16A4" target="_blank">海事局 — 发布2025版复习指南公告</a></li>
+    <li><a href="https://www.sh.msa.gov.cn/tzgg/105081.jhtml" target="_blank">上海海事局 — 2025年两员考核通告</a></li>
+    <li><a href="https://www.sz.msa.gov.cn/tzgg/2206148.jhtml" target="_blank">深圳海事局 — 2025年度考核通知</a></li>
+    <li><a href="https://www.zj.msa.gov.cn/ZJ/ggfw/ywdt/wfgl/202509/P020250910656760777630.pdf" target="_blank">浙江海事局 — 2025年考核通告 PDF</a></li>
+    <li><a href="https://jtt.shandong.gov.cn/art/2025/7/21/art_15843_10325052.html" target="_blank">山东省交通运输厅 — 2025版复习指南公告</a></li>
+    <li><a href="https://www.gov.cn/zhengce/2021-09/03/content_5711532.htm" target="_blank">国务院 — 《危险货物水路运输从业人员考核和从业资格管理规定》</a></li>
+    <li><a href="https://zwfw.msa.gov.cn" target="_blank">海事一网通办平台（报名入口）</a></li>
+  </ul>
+
+  <h3>行业资讯</h3>
+  <ul style="font-size:14px;padding-left:20px;margin:8px 0">
+    <li><a href="https://www.cnss.com.cn/html/sdbd/20250604/357071.html" target="_blank">海事服务网 — 2025版考纲发布</a></li>
+    <li><a href="https://www.cnss.com.cn/html/newsmanagement/20250911/357865.html" target="_blank">海事服务网 — 2025年即将报名</a></li>
+    <li><a href="https://news.sol.com.cn/html/2025-07-18/A06A4D0E4E4BFD213.shtml" target="_blank">航运在线 — 两员考核最新复习指南发布</a></li>
+    <li><a href="https://zhuanlan.zhihu.com/p/18222417397" target="_blank">知乎 — 2025年海事两员报名和考试常见问答</a></li>
+    <li><a href="https://zhuanlan.zhihu.com/p/477729985" target="_blank">知乎 — 关于船载危险货物两员从业资格考核</a></li>
+    <li><a href="https://www.mcrrc.top/bmgz/jy/bhhs/wgfw/516.html" target="_blank">海事法规查询 — 两员管理办法</a></li>
+    <li><a href="https://www.bilibili.com/video/BV1oVDRYJEQ5/" target="_blank">B站 — 散装固体科目真题讲解</a></li>
+  </ul>
+
+  <h3>考生经验（小红书）</h3>
+  <ul style="font-size:14px;padding-left:20px;margin:8px 0">
+    <li><a href="https://www.xiaohongshu.com/explore/67cfc16d00000000290323e5" target="_blank">海事两员考试心得（285赞）</a></li>
+    <li><a href="https://www.xiaohongshu.com/explore/683a8be600000000220044ac" target="_blank">零基础自学两员证day1（44赞）</a></li>
+    <li><a href="https://www.xiaohongshu.com/explore/671eec6d0000000026037d48" target="_blank">求海事两员考试推荐题库（43赞）</a></li>
+    <li><a href="https://www.xiaohongshu.com/explore/69a82e55000000001a03421e" target="_blank">海事两员证书可抵个税3600元（25赞）</a></li>
+    <li><a href="https://www.xiaohongshu.com/explore/66d7d78f000000001e01a5e3" target="_blank">海运两员散装固体考试题（17赞）</a></li>
+  </ul>
+</div>
+
+<!-- Footer -->
+<div class="footer">
+  <p>本页面基于公开信息整理，仅供备考参考。具体以海事局官方通知为准。</p>
+  <p style="margin-top:4px">调研日期：2026-06-24 | 数据来源：Google + 豆包 + 元宝 + 小红书 四渠道交叉验证</p>
+</div>
+
+</div><!-- container -->
+
+<script>
+// Smooth scroll for nav links
+document.querySelectorAll('.nav a').forEach(a => {
+  a.addEventListener('click', e => {
+    e.preventDefault();
+    const target = document.querySelector(a.getAttribute('href'));
+    if (target) target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+  });
+});
+</script>
+
+</body>
+</html>
