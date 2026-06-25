@@ -1,0 +1,433 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>固体散装危险货物 进出港口申报员 考点导图</title>
+<style>
+* { margin: 0; padding: 0; box-sizing: border-box; }
+:root {
+  --bg: #f8fafc;
+  --panel: #ffffff;
+  --text: #1e293b;
+  --muted: #64748b;
+  --border: #e2e8f0;
+  --shadow: 0 1px 3px rgba(0,0,0,0.05);
+  --shadow-lg: 0 10px 25px rgba(0,0,0,0.08);
+  --radius: 12px;
+}
+body {
+  font-family: -apple-system, BlinkMacSystemFont, "PingFang SC", "Helvetica Neue", Arial, sans-serif;
+  background: var(--bg); color: var(--text); line-height: 1.6;
+  -webkit-font-smoothing: antialiased;
+}
+.container { max-width: 1400px; margin: 0 auto; padding: 20px; }
+
+/* Header */
+.header {
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  color: white; border-radius: var(--radius);
+  padding: 28px 32px; margin-bottom: 20px;
+  box-shadow: var(--shadow-lg);
+}
+.header h1 { font-size: 24px; font-weight: 700; margin-bottom: 6px; letter-spacing: 0.5px; }
+.header .sub { opacity: 0.85; font-size: 14px; }
+.header-stats { display: flex; gap: 24px; margin-top: 18px; flex-wrap: wrap; }
+.header-stat {
+  background: rgba(255,255,255,0.15); padding: 10px 16px;
+  border-radius: 8px; backdrop-filter: blur(10px);
+}
+.header-stat .n { font-size: 22px; font-weight: 700; }
+.header-stat .l { font-size: 12px; opacity: 0.85; }
+
+/* Toolbar */
+.toolbar {
+  background: var(--panel); border-radius: var(--radius); padding: 16px 20px;
+  margin-bottom: 20px; box-shadow: var(--shadow);
+  display: flex; gap: 12px; align-items: center; flex-wrap: wrap;
+}
+.search {
+  flex: 1; min-width: 200px; padding: 10px 14px;
+  border: 1px solid var(--border); border-radius: 8px;
+  font-size: 14px; outline: none;
+}
+.search:focus { border-color: #667eea; }
+.filter-btn {
+  padding: 8px 16px; border: 1px solid var(--border);
+  background: white; border-radius: 8px; cursor: pointer;
+  font-size: 13px; font-weight: 500; color: var(--muted);
+  transition: all 0.15s;
+}
+.filter-btn:hover { background: #f1f5f9; }
+.filter-btn.active { background: #1e293b; color: white; border-color: #1e293b; }
+.filter-btn[data-lv="1"].active { background: #10b981; border-color: #10b981; }
+.filter-btn[data-lv="2"].active { background: #f59e0b; border-color: #f59e0b; }
+.filter-btn[data-lv="3"].active { background: #ef4444; border-color: #ef4444; }
+.filter-btn.show-mastered { background: white; color: #6366f1; border-color: #c7d2fe; }
+.filter-btn.show-mastered.active { background: #6366f1; color: white; border-color: #6366f1; }
+
+/* Progress bar */
+.progress-wrap { width: 100%; margin-top: 12px; }
+.progress-label { display: flex; justify-content: space-between; font-size: 13px; color: var(--muted); margin-bottom: 6px; }
+.progress { height: 8px; background: #f1f5f9; border-radius: 4px; overflow: hidden; }
+.progress-bar { height: 100%; background: linear-gradient(90deg, #10b981, #6366f1); transition: width 0.3s; }
+
+/* Main grid */
+.main { display: grid; grid-template-columns: 280px 1fr; gap: 20px; }
+@media (max-width: 900px) { .main { grid-template-columns: 1fr; } }
+
+/* TOC */
+.toc {
+  background: var(--panel); border-radius: var(--radius);
+  padding: 18px; box-shadow: var(--shadow);
+  position: sticky; top: 20px; max-height: calc(100vh - 40px); overflow-y: auto;
+}
+.toc h3 { font-size: 13px; color: var(--muted); margin-bottom: 12px; text-transform: uppercase; letter-spacing: 0.5px; }
+.toc-part { margin-bottom: 14px; }
+.toc-part-title {
+  font-size: 14px; font-weight: 600; padding: 6px 10px;
+  border-radius: 6px; cursor: pointer; display: flex; align-items: center; gap: 8px;
+  transition: background 0.15s;
+}
+.toc-part-title:hover { background: #f1f5f9; }
+.toc-part-dot { width: 8px; height: 8px; border-radius: 50%; }
+.toc-section { font-size: 13px; padding: 5px 10px 5px 26px; color: var(--muted); cursor: pointer; border-radius: 4px; }
+.toc-section:hover { background: #f1f5f9; color: var(--text); }
+.toc-section.active { background: #eef2ff; color: #4f46e5; font-weight: 500; }
+
+/* Content */
+.content { min-width: 0; }
+.section-block {
+  background: var(--panel); border-radius: var(--radius);
+  padding: 24px 28px; margin-bottom: 16px;
+  box-shadow: var(--shadow); scroll-margin-top: 20px;
+}
+.section-block.hidden { display: none; }
+.section-header { display: flex; align-items: baseline; gap: 12px; margin-bottom: 6px; border-bottom: 2px solid #f1f5f9; padding-bottom: 10px; margin-bottom: 16px; }
+.section-header .num { font-size: 13px; font-weight: 600; color: var(--muted); }
+.section-header .title { font-size: 17px; font-weight: 600; }
+.section-header .badge-part { font-size: 11px; padding: 2px 8px; border-radius: 4px; color: white; font-weight: 500; margin-left: auto; }
+
+.group-title { font-size: 14px; font-weight: 600; color: var(--muted); margin: 16px 0 10px; }
+
+.item {
+  display: flex; gap: 12px; align-items: flex-start;
+  padding: 12px 14px; border-radius: 8px;
+  border: 1px solid #f1f5f9;
+  margin-bottom: 8px;
+  transition: all 0.15s;
+  position: relative;
+}
+.item.hidden { display: none; }
+.item:hover { background: #f8fafc; border-color: var(--border); }
+.item.mastered { opacity: 0.55; background: #f0fdf4; }
+.item.mastered .item-title { text-decoration: line-through; }
+
+.item-check {
+  width: 20px; height: 20px; border-radius: 6px;
+  border: 2px solid var(--border); flex-shrink: 0;
+  cursor: pointer; display: flex; align-items: center; justify-content: center;
+  margin-top: 2px;
+  transition: all 0.15s;
+}
+.item-check:hover { border-color: #10b981; }
+.item-check.checked { background: #10b981; border-color: #10b981; }
+.item-check.checked::after { content: "✓"; color: white; font-weight: bold; font-size: 14px; }
+
+.item-body { flex: 1; min-width: 0; }
+.item-title { font-size: 14px; font-weight: 500; line-height: 1.55; }
+.item-note { font-size: 13px; color: var(--muted); margin-top: 4px; line-height: 1.5; }
+.item-extra { display: inline-block; font-size: 11px; padding: 2px 6px; background: #eef2ff; color: #4f46e5; border-radius: 4px; margin-left: 8px; }
+
+.level-badge {
+  display: inline-flex; align-items: center; padding: 3px 10px;
+  border-radius: 12px; font-size: 11px; font-weight: 600;
+  flex-shrink: 0; margin-top: 2px;
+}
+
+.empty {
+  text-align: center; padding: 40px; color: var(--muted);
+  background: var(--panel); border-radius: var(--radius);
+}
+
+.tips {
+  background: linear-gradient(135deg, #fef3c7 0%, #fed7aa 100%);
+  border-radius: var(--radius); padding: 18px 22px; margin-bottom: 20px;
+  border-left: 4px solid #f59e0b;
+}
+.tips h4 { font-size: 14px; margin-bottom: 6px; color: #92400e; }
+.tips p { font-size: 13px; color: #78350f; line-height: 1.7; }
+.tips ul { margin-top: 8px; padding-left: 18px; }
+.tips li { font-size: 13px; color: #78350f; margin-bottom: 3px; }
+
+.reset-btn {
+  font-size: 12px; padding: 6px 12px; border: 1px solid var(--border);
+  background: white; border-radius: 6px; cursor: pointer; color: var(--muted);
+}
+.reset-btn:hover { color: #ef4444; border-color: #ef4444; }
+</style>
+</head>
+<body>
+<div class="container">
+  <div class="header">
+    <h1>固体散装危险货物 进出港口申报员 考点导图</h1>
+    <div class="sub">海事局《两员从业人员考核复习指南》— 固体散装方向</div>
+    <div class="header-stats" id="headerStats"></div>
+  </div>
+
+  
+  
+  <div style="display:flex;gap:10px;margin-bottom:16px;flex-wrap:wrap;">
+    <a href="index.html" style="flex:1;min-width:100px;text-align:center;padding:12px;background:#fff;color:#2b6cb0;text-decoration:none;border-radius:8px;font-weight:500;border:2px solid #2b6cb0;">📖 备考指南</a>
+    <a href="思维导图.html" style="flex:1;text-align:center;padding:12px;background:#fff;color:#667eea;text-decoration:none;border-radius:8px;font-weight:500;border:2px solid #667eea;">🧠 思维导图（主入口）</a>
+    <a href="法规阅读.html" style="flex:1;text-align:center;padding:12px;background:#fff;color:#92400e;text-decoration:none;border-radius:8px;font-weight:500;border:2px solid #d97706;">📜 4 部法规原文</a>
+    <a href="学习导图.html" style="flex:1;text-align:center;padding:12px;background:#fff;color:#64748b;text-decoration:none;border-radius:8px;font-weight:500;border:2px solid #cbd5e1;">📋 卡片清单</a>
+  </div>
+
+  <div class="tips">
+    <h4>📌 学习建议（零基础起步）</h4>
+    <p>这本指南本身只是<b>考点目录</b>，不是教材。真正要看的是它引用的法规和国际规则。建议路径：</p>
+    <ul>
+      <li>① 先把 ★ 标"掌握"的国内规章读熟（《船舶载运危险货物安全监督管理规定》《海运固体散装货物安全监督管理规定》《申报员管理办法》三部）</li>
+      <li>② 再啃 IMSBC Code（国际海运固体散装货物规则）— 第二部分的核心法源</li>
+      <li>③ 实务部分（申报单证）找模板对照学，光看条文记不住</li>
+      <li>④ 国际公约 SOLAS/MARPOL 涉及条文先抓重点章节，不必全读</li>
+    </ul>
+  </div>
+
+  <div class="toolbar">
+    <input type="text" class="search" placeholder="🔍 搜索关键词（如：MHB / 适运 / 静止角）..." id="search">
+    <button class="filter-btn active" data-lv="all">全部 <span id="cnt-all"></span></button>
+    <button class="filter-btn" data-lv="3">掌握 <span id="cnt-3"></span></button>
+    <button class="filter-btn" data-lv="2">熟悉 <span id="cnt-2"></span></button>
+    <button class="filter-btn" data-lv="1">了解 <span id="cnt-1"></span></button>
+    <button class="filter-btn show-mastered" id="toggleMastered">隐藏已掌握</button>
+    <button class="reset-btn" id="resetProgress">重置进度</button>
+    <div class="progress-wrap">
+      <div class="progress-label"><span>学习进度</span><span id="progressText">0 / 0</span></div>
+      <div class="progress"><div class="progress-bar" id="progressBar" style="width: 0%"></div></div>
+    </div>
+  </div>
+
+  <div class="main">
+    <div class="toc" id="toc"></div>
+    <div class="content" id="content"></div>
+  </div>
+</div>
+
+<script>
+const DATA = {"title": "固体散装危险货物 进出港口申报员 考点导图","subtitle": "海事局《两员从业人员考核复习指南》— 固体散装方向","parts": [{"id": "p1","title": "第一部分 · 公共基础","color": "#3b82f6"},{"id": "p2","title": "第二部分 · 固体散装货物运输（核心）","color": "#f59e0b"},{"id": "p3","title": "第三部分 · 危险货物事故应急","color": "#ef4444"}],"items": [{"id": "i1","part": "p1","partTitle": "第一部分 · 公共基础","color": "#3b82f6","chapterId": "1","chapterTitle": "1 危险货物相关规定","sectionId": "1.1","sectionTitle": "1.1 国际条约 / 国内法规体系","groupTitle": "1.1.1 国际条约及技术规则（6 部）","k": "联合国《关于危险货物运输的建议书》","lv": 1,"note": "了解：制定目的 / 适用 / 框架结构 / 修正周期","extra": ""},{"id": "i2","part": "p1","partTitle": "第一部分 · 公共基础","color": "#3b82f6","chapterId": "1","chapterTitle": "1 危险货物相关规定","sectionId": "1.1","sectionTitle": "1.1 国际条约 / 国内法规体系","groupTitle": "1.1.1 国际条约及技术规则（6 部）","k": "《全球化学品统一分类和标签制度》(GHS)","lv": 1,"note": "了解：目的/适用/修正周期；标签 6 要素 + MSDS 16 项","extra": ""},{"id": "i3","part": "p1","partTitle": "第一部分 · 公共基础","color": "#3b82f6","chapterId": "1","chapterTitle": "1 危险货物相关规定","sectionId": "1.1","sectionTitle": "1.1 国际条约 / 国内法规体系","groupTitle": "1.1.1 国际条约及技术规则（6 部）","k": "《国际海上人命安全公约》(SOLAS)","lv": 1,"note": "II-2/19 符合证明；第 VI 章货物燃油运输；第 VII 章 A-1 部分固体散装危险货物运输（VII/7）— 熟悉","extra": ""},{"id": "i4","part": "p1","partTitle": "第一部分 · 公共基础","color": "#3b82f6","chapterId": "1","chapterTitle": "1 危险货物相关规定","sectionId": "1.1","sectionTitle": "1.1 国际条约 / 国内法规体系","groupTitle": "1.1.1 国际条约及技术规则（6 部）","k": "《国际防止船舶造成污染公约》(MARPOL)","lv": 2,"note": "熟悉附则 V 防止船舶垃圾污染规则 — 定义、垃圾分类、J/K 类垃圾记录要求","extra": ""},{"id": "i5","part": "p1","partTitle": "第一部分 · 公共基础","color": "#3b82f6","chapterId": "1","chapterTitle": "1 危险货物相关规定","sectionId": "1.1","sectionTitle": "1.1 国际条约 / 国内法规体系","groupTitle": "1.1.1 国际条约及技术规则（6 部）","k": "《国际海运危险货物规则》(IMDG Code)","lv": 1,"note": "了解适用范围、修正周期、第 2/7.1/7.2 章主要内容","extra": ""},{"id": "i6","part": "p1","partTitle": "第一部分 · 公共基础","color": "#3b82f6","chapterId": "1","chapterTitle": "1 危险货物相关规定","sectionId": "1.1","sectionTitle": "1.1 国际条约 / 国内法规体系","groupTitle": "1.1.1 国际条约及技术规则（6 部）","k": "★《国际海运固体散装货物规则》(IMSBC Code)","lv": 3,"note": "掌握规则的适用范围、修正周期、各章节和附录的基本内容（核心法规！）","extra": ""},{"id": "i6b","part": "p1","partTitle": "第一部分 · 公共基础","color": "#3b82f6","chapterId": "1","chapterTitle": "1 危险货物相关规定","sectionId": "1.1","sectionTitle": "1.1 国际条约 / 国内法规体系","groupTitle": "1.1.2 国内法律法规（15 部）","k": "《中华人民共和国安全生产法》","lv": 1,"note": "了解全文（共七章一百一十九条）","extra": ""},{"id": "i7","part": "p1","partTitle": "第一部分 · 公共基础","color": "#3b82f6","chapterId": "1","chapterTitle": "1 危险货物相关规定","sectionId": "1.1","sectionTitle": "1.1 国际条约 / 国内法规体系","groupTitle": "1.1.2 国内法律法规（15 部）","k": "《海上交通安全法》","lv": 1,"note": "了解全文；掌握第 2、4、58、62-65、88、89、103(1)(12)、108、109、117 条","extra": "掌握 14 个条款"},{"id": "i8","part": "p1","partTitle": "第一部分 · 公共基础","color": "#3b82f6","chapterId": "1","chapterTitle": "1 危险货物相关规定","sectionId": "1.1","sectionTitle": "1.1 国际条约 / 国内法规体系","groupTitle": "1.1.2 国内法律法规（15 部）","k": "《海洋环境保护法》","lv": 1,"note": "了解全文；掌握第 2、62-64、67、68、74、87 条","extra": "掌握 8 个条款"},{"id": "i9","part": "p1","partTitle": "第一部分 · 公共基础","color": "#3b82f6","chapterId": "1","chapterTitle": "1 危险货物相关规定","sectionId": "1.1","sectionTitle": "1.1 国际条约 / 国内法规体系","groupTitle": "1.1.2 国内法律法规（15 部）","k": "《水污染防治法》","lv": 1,"note": "了解全文；掌握第 2、9、59、78 条","extra": "掌握 4 个条款"},{"id": "i10","part": "p1","partTitle": "第一部分 · 公共基础","color": "#3b82f6","chapterId": "1","chapterTitle": "1 危险货物相关规定","sectionId": "1.1","sectionTitle": "1.1 国际条约 / 国内法规体系","groupTitle": "1.1.2 国内法律法规（15 部）","k": "《长江保护法》","lv": 1,"note": "了解全文；掌握第 51、90 条","extra": "掌握 2 个条款"},{"id": "i11","part": "p1","partTitle": "第一部分 · 公共基础","color": "#3b82f6","chapterId": "1","chapterTitle": "1 危险货物相关规定","sectionId": "1.1","sectionTitle": "1.1 国际条约 / 国内法规体系","groupTitle": "1.1.2 国内法律法规（15 部）","k": "《危险化学品安全管理条例》","lv": 1,"note": "了解全文；掌握第 3、44、45、53、54、57、60、61、63、64、86、87 条","extra": "掌握 12 个条款"},{"id": "i12","part": "p1","partTitle": "第一部分 · 公共基础","color": "#3b82f6","chapterId": "1","chapterTitle": "1 危险货物相关规定","sectionId": "1.1","sectionTitle": "1.1 国际条约 / 国内法规体系","groupTitle": "1.1.2 国内法律法规（15 部）","k": "《防治船舶污染海洋环境管理条例》","lv": 1,"note": "了解全文；掌握第 2、4、16、21-25、65、66 条","extra": "掌握 10 个条款"},{"id": "i13","part": "p1","partTitle": "第一部分 · 公共基础","color": "#3b82f6","chapterId": "1","chapterTitle": "1 危险货物相关规定","sectionId": "1.1","sectionTitle": "1.1 国际条约 / 国内法规体系","groupTitle": "1.1.2 国内法律法规（15 部）","k": "《内河交通安全管理条例》","lv": 1,"note": "了解全文；掌握第 2、4、30-34、71 条","extra": "掌握 8 个条款"},{"id": "i14","part": "p1","partTitle": "第一部分 · 公共基础","color": "#3b82f6","chapterId": "1","chapterTitle": "1 危险货物相关规定","sectionId": "1.1","sectionTitle": "1.1 国际条约 / 国内法规体系","groupTitle": "1.1.2 国内法律法规（15 部）","k": "★《船舶载运危险货物安全监督管理规定》","lv": 3,"note": "掌握全文（8 章 52 条）","extra": ""},{"id": "i15","part": "p1","partTitle": "第一部分 · 公共基础","color": "#3b82f6","chapterId": "1","chapterTitle": "1 危险货物相关规定","sectionId": "1.1","sectionTitle": "1.1 国际条约 / 国内法规体系","groupTitle": "1.1.2 国内法律法规（15 部）","k": "★《海运固体散装货物安全监督管理规定》","lv": 3,"note": "掌握全文（9 章 43 条）— 固体散装方向的核心部门规章","extra": ""},{"id": "i16","part": "p1","partTitle": "第一部分 · 公共基础","color": "#3b82f6","chapterId": "1","chapterTitle": "1 危险货物相关规定","sectionId": "1.1","sectionTitle": "1.1 国际条约 / 国内法规体系","groupTitle": "1.1.2 国内法律法规（15 部）","k": "《危险货物水路运输从业人员考核和从业资格管理规定》","lv": 1,"note": "了解全文；掌握第 2、3、5、12、15、20、21、23-25、27-29 条","extra": "掌握 13 个条款"},{"id": "i17","part": "p1","partTitle": "第一部分 · 公共基础","color": "#3b82f6","chapterId": "1","chapterTitle": "1 危险货物相关规定","sectionId": "1.1","sectionTitle": "1.1 国际条约 / 国内法规体系","groupTitle": "1.1.2 国内法律法规（15 部）","k": "《船舶及其有关作业活动污染海洋环境防治管理规定》","lv": 1,"note": "了解全文；掌握第 2、23-33、58、59 条","extra": "掌握 14 个条款"},{"id": "i18","part": "p1","partTitle": "第一部分 · 公共基础","color": "#3b82f6","chapterId": "1","chapterTitle": "1 危险货物相关规定","sectionId": "1.1","sectionTitle": "1.1 国际条约 / 国内法规体系","groupTitle": "1.1.2 国内法律法规（15 部）","k": "《防治船舶污染内河水域环境管理规定》","lv": 1,"note": "了解全文；掌握第 2、9、11、22-26、33、34、47、48、50、51 条","extra": "掌握 14 个条款"},{"id": "i19","part": "p1","partTitle": "第一部分 · 公共基础","color": "#3b82f6","chapterId": "1","chapterTitle": "1 危险货物相关规定","sectionId": "1.1","sectionTitle": "1.1 国际条约 / 国内法规体系","groupTitle": "1.1.2 国内法律法规（15 部）","k": "《海事行政许可条件规定》","lv": 3,"note": "掌握第 12、14 条","extra": ""},{"id": "i20","part": "p1","partTitle": "第一部分 · 公共基础","color": "#3b82f6","chapterId": "1","chapterTitle": "1 危险货物相关规定","sectionId": "1.1","sectionTitle": "1.1 国际条约 / 国内法规体系","groupTitle": "1.1.2 国内法律法规（15 部）","k": "★《船载危险货物申报员和集装箱装箱现场检查员管理办法》","lv": 3,"note": "掌握全文（6 章 32 条）— 你的执业身份依据","extra": ""},{"id": "i21","part": "p1","partTitle": "第一部分 · 公共基础","color": "#3b82f6","chapterId": "1","chapterTitle": "1 危险货物相关规定","sectionId": "1.2","sectionTitle": "1.2 申报员的权利和义务","groupTitle": "","k": "申报员的权利","lv": 3,"note": "《管理办法》第 6 条","extra": ""},{"id": "i22","part": "p1","partTitle": "第一部分 · 公共基础","color": "#3b82f6","chapterId": "1","chapterTitle": "1 危险货物相关规定","sectionId": "1.2","sectionTitle": "1.2 申报员的权利和义务","groupTitle": "","k": "申报员的义务","lv": 3,"note": "《管理办法》第 6 条","extra": ""},{"id": "i23","part": "p1","partTitle": "第一部分 · 公共基础","color": "#3b82f6","chapterId": "1","chapterTitle": "1 危险货物相关规定","sectionId": "1.3","sectionTitle": "1.3 申报要求和途径","groupTitle": "","k": "进出港口申报的主体、条件、材料、时限和结果","lv": 3,"note": "《监督管理规定》第四章 + 《海洋环境防治规定》第四章","extra": ""},{"id": "i24","part": "p1","partTitle": "第一部分 · 公共基础","color": "#3b82f6","chapterId": "1","chapterTitle": "1 危险货物相关规定","sectionId": "1.3","sectionTitle": "1.3 申报要求和途径","groupTitle": "","k": "安全适运报告 / 适运申报的主体和材料要求","lv": 3,"note": "同上","extra": ""},{"id": "i25","part": "p1","partTitle": "第一部分 · 公共基础","color": "#3b82f6","chapterId": "2","chapterTitle": "2 危险货物 定义 / 特性 / 分类","sectionId": "2.1","sectionTitle": "2.1 定义和范围","groupTitle": "","k": "危险货物 的定义","lv": 3,"note": "《海上交通安全法》第 117 条","extra": ""},{"id": "i26","part": "p1","partTitle": "第一部分 · 公共基础","color": "#3b82f6","chapterId": "2","chapterTitle": "2 危险货物 定义 / 特性 / 分类","sectionId": "2.1","sectionTitle": "2.1 定义和范围","groupTitle": "","k": "船舶载运危险货物 的范围","lv": 3,"note": "《监督管理规定》第 50 条","extra": ""},{"id": "i27","part": "p1","partTitle": "第一部分 · 公共基础","color": "#3b82f6","chapterId": "2","chapterTitle": "2 危险货物 定义 / 特性 / 分类","sectionId": "2.1","sectionTitle": "2.1 定义和范围","groupTitle": "","k": "危险化学品 定义","lv": 3,"note": "《危险化学品安全管理条例》第 3 条","extra": ""},{"id": "i28","part": "p1","partTitle": "第一部分 · 公共基础","color": "#3b82f6","chapterId": "2","chapterTitle": "2 危险货物 定义 / 特性 / 分类","sectionId": "2.1","sectionTitle": "2.1 定义和范围","groupTitle": "","k": "危险化学品 判定衡准 + 内河禁运要求","lv": 2,"note": "《目录》+ 条例第 54 条 + 《内河禁运危险化学品名录》","extra": ""},{"id": "i29","part": "p1","partTitle": "第一部分 · 公共基础","color": "#3b82f6","chapterId": "2","chapterTitle": "2 危险货物 定义 / 特性 / 分类","sectionId": "2.1","sectionTitle": "2.1 定义和范围","groupTitle": "","k": "污染危害性货物 的定义","lv": 3,"note": "《海洋环境防治规定》第 23 条 / 《内河水域规定》第 53 条","extra": ""},{"id": "i30","part": "p1","partTitle": "第一部分 · 公共基础","color": "#3b82f6","chapterId": "2","chapterTitle": "2 危险货物 定义 / 特性 / 分类","sectionId": "2.1","sectionTitle": "2.1 定义和范围","groupTitle": "","k": "污染危害性货物 的范围","lv": 3,"note": "《海运污染危害性货物名录》","extra": ""},{"id": "i31","part": "p1","partTitle": "第一部分 · 公共基础","color": "#3b82f6","chapterId": "2","chapterTitle": "2 危险货物 定义 / 特性 / 分类","sectionId": "2.2","sectionTitle": "2.2 危险货物的特性","groupTitle": "","k": "化学反应特性","lv": 1,"note": "","extra": ""},{"id": "i32","part": "p1","partTitle": "第一部分 · 公共基础","color": "#3b82f6","chapterId": "2","chapterTitle": "2 危险货物 定义 / 特性 / 分类","sectionId": "2.2","sectionTitle": "2.2 危险货物的特性","groupTitle": "","k": "燃烧、爆炸特性","lv": 1,"note": "","extra": ""},{"id": "i33","part": "p1","partTitle": "第一部分 · 公共基础","color": "#3b82f6","chapterId": "2","chapterTitle": "2 危险货物 定义 / 特性 / 分类","sectionId": "2.2","sectionTitle": "2.2 危险货物的特性","groupTitle": "","k": "毒害、放射、腐蚀特性","lv": 1,"note": "","extra": ""},{"id": "i34","part": "p1","partTitle": "第一部分 · 公共基础","color": "#3b82f6","chapterId": "2","chapterTitle": "2 危险货物 定义 / 特性 / 分类","sectionId": "2.2","sectionTitle": "2.2 危险货物的特性","groupTitle": "","k": "污染特性（货物残留物对海洋的污染危害）","lv": 3,"note": "掌握残留物危害","extra": ""},{"id": "i35","part": "p1","partTitle": "第一部分 · 公共基础","color": "#3b82f6","chapterId": "2","chapterTitle": "2 危险货物 定义 / 特性 / 分类","sectionId": "2.3","sectionTitle": "2.3 各种运输形式下的危险货物分类","groupTitle": "","k": "5 种运输形式 ↔ 对应法规","lv": 2,"note": "包装/固散/散油/散化/液化气","extra": ""},{"id": "i36","part": "p1","partTitle": "第一部分 · 公共基础","color": "#3b82f6","chapterId": "2","chapterTitle": "2 危险货物 定义 / 特性 / 分类","sectionId": "2.3","sectionTitle": "2.3 各种运输形式下的危险货物分类","groupTitle": "","k": "固体散装货物 分组规定 + 涉及的危险货物类别","lv": 3,"note": "IMSBC Code","extra": ""},{"id": "i37","part": "p1","partTitle": "第一部分 · 公共基础","color": "#3b82f6","chapterId": "2","chapterTitle": "2 危险货物 定义 / 特性 / 分类","sectionId": "2.3","sectionTitle": "2.3 各种运输形式下的危险货物分类","groupTitle": "","k": "IMDG 危险货物分类：9 大类 20 小类","lv": 3,"note": "★必背","extra": ""},{"id": "i38","part": "p2","partTitle": "第二部分 · 固体散装货物运输（核心）","color": "#f59e0b","chapterId": "1","chapterTitle": "1 基本知识","sectionId": "1.1","sectionTitle": "1.1 常用术语","groupTitle": "","k": "静止角 / 散装货物运输名称 / 易流态化货物 / 黏性 / 非黏性 / 精矿 / 流动水分点 / 流态 / 高密度散货 / MHB / 水分含量 / 适运水分极限","lv": 3,"note": "IMSBC 术语 — 必须能默写定义","extra": ""},{"id": "i39","part": "p2","partTitle": "第二部分 · 固体散装货物运输（核心）","color": "#f59e0b","chapterId": "1","chapterTitle": "1 基本知识","sectionId": "1.2","sectionTitle": "1.2 分组、分类及危害特性","groupTitle": "","k": "固散货物 分组规定（A/B/C 组）","lv": 3,"note": "IMSBC 1.7","extra": ""},{"id": "i40","part": "p2","partTitle": "第二部分 · 固体散装货物运输（核心）","color": "#f59e0b","chapterId": "1","chapterTitle": "1 基本知识","sectionId": "1.2","sectionTitle": "1.2 分组、分类及危害特性","groupTitle": "","k": "固散危险货物 分类规定","lv": 3,"note": "IMSBC 9.2","extra": ""},{"id": "i41","part": "p2","partTitle": "第二部分 · 固体散装货物运输（核心）","color": "#f59e0b","chapterId": "1","chapterTitle": "1 基本知识","sectionId": "1.2","sectionTitle": "1.2 分组、分类及危害特性","groupTitle": "","k": "对船体结构和船舶稳性的影响","lv": 2,"note": "IMSBC 2.1.1","extra": ""},{"id": "i42","part": "p2","partTitle": "第二部分 · 固体散装货物运输（核心）","color": "#f59e0b","chapterId": "1","chapterTitle": "1 基本知识","sectionId": "1.2","sectionTitle": "1.2 分组、分类及危害特性","groupTitle": "","k": "化学反应的危害","lv": 3,"note": "IMSBC 9.2","extra": ""},{"id": "i43","part": "p2","partTitle": "第二部分 · 固体散装货物运输（核心）","color": "#f59e0b","chapterId": "1","chapterTitle": "1 基本知识","sectionId": "1.3","sectionTitle": "1.3 装载/运输/卸载的一般预防措施","groupTitle": "","k": "防止船舶结构超负荷","lv": 2,"note": "IMSBC 2.1.2","extra": ""},{"id": "i44","part": "p2","partTitle": "第二部分 · 固体散装货物运输（核心）","color": "#f59e0b","chapterId": "1","chapterTitle": "1 基本知识","sectionId": "1.3","sectionTitle": "1.3 装载/运输/卸载的一般预防措施","groupTitle": "","k": "维护船舶稳性","lv": 2,"note": "IMSBC 2.1.3","extra": ""},{"id": "i45","part": "p2","partTitle": "第二部分 · 固体散装货物运输（核心）","color": "#f59e0b","chapterId": "1","chapterTitle": "1 基本知识","sectionId": "1.3","sectionTitle": "1.3 装载/运输/卸载的一般预防措施","groupTitle": "","k": "装载和卸载要求","lv": 2,"note": "IMSBC 2.2","extra": ""},{"id": "i46","part": "p2","partTitle": "第二部分 · 固体散装货物运输（核心）","color": "#f59e0b","chapterId": "1","chapterTitle": "1 基本知识","sectionId": "1.4","sectionTitle": "1.4 对人员和船舶的安全要求","groupTitle": "","k": "人员和船舶安全 一般要求","lv": 3,"note": "IMSBC 3.1","extra": ""},{"id": "i47","part": "p2","partTitle": "第二部分 · 固体散装货物运输（核心）","color": "#f59e0b","chapterId": "1","chapterTitle": "1 基本知识","sectionId": "1.4","sectionTitle": "1.4 对人员和船舶的安全要求","groupTitle": "","k": "防止中毒、腐蚀、窒息","lv": 2,"note": "IMSBC 3.2","extra": ""},{"id": "i48","part": "p2","partTitle": "第二部分 · 固体散装货物运输（核心）","color": "#f59e0b","chapterId": "1","chapterTitle": "1 基本知识","sectionId": "1.4","sectionTitle": "1.4 对人员和船舶的安全要求","groupTitle": "","k": "防止粉尘对健康危害","lv": 2,"note": "IMSBC 3.3","extra": ""},{"id": "i49","part": "p2","partTitle": "第二部分 · 固体散装货物运输（核心）","color": "#f59e0b","chapterId": "1","chapterTitle": "1 基本知识","sectionId": "1.4","sectionTitle": "1.4 对人员和船舶的安全要求","groupTitle": "","k": "防止易燃气体危害","lv": 2,"note": "IMSBC 3.4","extra": ""},{"id": "i50","part": "p2","partTitle": "第二部分 · 固体散装货物运输（核心）","color": "#f59e0b","chapterId": "1","chapterTitle": "1 基本知识","sectionId": "1.4","sectionTitle": "1.4 对人员和船舶的安全要求","groupTitle": "","k": "船舶通风要求","lv": 2,"note": "IMSBC 3.5","extra": ""},{"id": "i51","part": "p2","partTitle": "第二部分 · 固体散装货物运输（核心）","color": "#f59e0b","chapterId": "1","chapterTitle": "1 基本知识","sectionId": "1.4","sectionTitle": "1.4 对人员和船舶的安全要求","groupTitle": "","k": "运输中熏蒸要求","lv": 1,"note": "IMSBC 3.6","extra": ""},{"id": "i52","part": "p2","partTitle": "第二部分 · 固体散装货物运输（核心）","color": "#f59e0b","chapterId": "1","chapterTitle": "1 基本知识","sectionId": "1.5","sectionTitle": "1.5 未列入规则的货物 评估与运输条件","groupTitle": "","k": "识别 / 分类 / 运输名称的确定","lv": 3,"note": "IMSBC 4.1","extra": ""},{"id": "i53","part": "p2","partTitle": "第二部分 · 固体散装货物运输（核心）","color": "#f59e0b","chapterId": "1","chapterTitle": "1 基本知识","sectionId": "1.5","sectionTitle": "1.5 未列入规则的货物 评估与运输条件","groupTitle": "","k": "提供货物信息 + 安全适运声明书要素","lv": 3,"note": "IMSBC 4.2","extra": ""},{"id": "i54","part": "p2","partTitle": "第二部分 · 固体散装货物运输（核心）","color": "#f59e0b","chapterId": "1","chapterTitle": "1 基本知识","sectionId": "1.5","sectionTitle": "1.5 未列入规则的货物 评估与运输条件","groupTitle": "","k": "试验证书 + 取样/试验与装货间隔","lv": 3,"note": "IMSBC 4.3、4.5","extra": ""},{"id": "i55","part": "p2","partTitle": "第二部分 · 固体散装货物运输（核心）","color": "#f59e0b","chapterId": "1","chapterTitle": "1 基本知识","sectionId": "1.5","sectionTitle": "1.5 未列入规则的货物 评估与运输条件","groupTitle": "","k": "货物采样程序","lv": 2,"note": "IMSBC 4.4","extra": ""},{"id": "i56","part": "p2","partTitle": "第二部分 · 固体散装货物运输（核心）","color": "#f59e0b","chapterId": "1","chapterTitle": "1 基本知识","sectionId": "1.5","sectionTitle": "1.5 未列入规则的货物 评估与运输条件","groupTitle": "","k": "未列入货物的评估程序","lv": 3,"note": "IMSBC 1.3","extra": ""},{"id": "i57","part": "p2","partTitle": "第二部分 · 固体散装货物运输（核心）","color": "#f59e0b","chapterId": "1","chapterTitle": "1 基本知识","sectionId": "1.6","sectionTitle": "1.6 易流态化固散货物 ⚠","groupTitle": "","k": "存在的危险","lv": 3,"note": "IMSBC 7.1","extra": ""},{"id": "i58","part": "p2","partTitle": "第二部分 · 固体散装货物运输（核心）","color": "#f59e0b","chapterId": "1","chapterTitle": "1 基本知识","sectionId": "1.6","sectionTitle": "1.6 易流态化固散货物 ⚠","groupTitle": "","k": "导致危险的条件","lv": 2,"note": "IMSBC 7.2","extra": ""},{"id": "i59","part": "p2","partTitle": "第二部分 · 固体散装货物运输（核心）","color": "#f59e0b","chapterId": "1","chapterTitle": "1 基本知识","sectionId": "1.6","sectionTitle": "1.6 易流态化固散货物 ⚠","groupTitle": "","k": "特殊规定","lv": 3,"note": "IMSBC 7.3.1","extra": ""},{"id": "i60","part": "p2","partTitle": "第二部分 · 固体散装货物运输（核心）","color": "#f59e0b","chapterId": "1","chapterTitle": "1 基本知识","sectionId": "1.6","sectionTitle": "1.6 易流态化固散货物 ⚠","groupTitle": "","k": "专门建造/装专门设备的货船 特殊规定","lv": 2,"note": "IMSBC 7.3.2、7.3.3","extra": ""},{"id": "i61","part": "p2","partTitle": "第二部分 · 固体散装货物运输（核心）","color": "#f59e0b","chapterId": "1","chapterTitle": "1 基本知识","sectionId": "1.7","sectionTitle": "1.7 固散危险货物 运输要求","groupTitle": "","k": "范围","lv": 3,"note": "《监督管理规定》第 50 条","extra": ""},{"id": "i62","part": "p2","partTitle": "第二部分 · 固体散装货物运输（核心）","color": "#f59e0b","chapterId": "1","chapterTitle": "1 基本知识","sectionId": "1.7","sectionTitle": "1.7 固散危险货物 运输要求","groupTitle": "","k": "危险性分类 + MHB 化学危险性符号引用","lv": 3,"note": "IMSBC 9.2","extra": ""},{"id": "i63","part": "p2","partTitle": "第二部分 · 固体散装货物运输（核心）","color": "#f59e0b","chapterId": "1","chapterTitle": "1 基本知识","sectionId": "1.7","sectionTitle": "1.7 固散危险货物 运输要求","groupTitle": "","k": "MHB 物质化学危险性 判定衡准","lv": 2,"note": "IMSBC 9.2.3","extra": ""},{"id": "i64","part": "p2","partTitle": "第二部分 · 固体散装货物运输（核心）","color": "#f59e0b","chapterId": "1","chapterTitle": "1 基本知识","sectionId": "1.7","sectionTitle": "1.7 固散危险货物 运输要求","groupTitle": "","k": "积载和隔离要求","lv": 2,"note": "IMSBC 9.3","extra": ""},{"id": "i65","part": "p2","partTitle": "第二部分 · 固体散装货物运输（核心）","color": "#f59e0b","chapterId": "1","chapterTitle": "1 基本知识","sectionId": "1.8","sectionTitle": "1.8 IMSBC 规则的使用方法","groupTitle": "","k": "章节结构 + 各附录主要内容","lv": 3,"note": "","extra": ""},{"id": "i66","part": "p2","partTitle": "第二部分 · 固体散装货物运输（核心）","color": "#f59e0b","chapterId": "1","chapterTitle": "1 基本知识","sectionId": "1.8","sectionTitle": "1.8 IMSBC 规则的使用方法","groupTitle": "","k": "适用范围 / 强制性 vs 建议性部分","lv": 2,"note": "IMSBC 1.4","extra": ""},{"id": "i67","part": "p2","partTitle": "第二部分 · 固体散装货物运输（核心）","color": "#f59e0b","chapterId": "1","chapterTitle": "1 基本知识","sectionId": "1.8","sectionTitle": "1.8 IMSBC 规则的使用方法","groupTitle": "","k": "附录 1 固体散装货物明细表 的结构","lv": 2,"note": "","extra": ""},{"id": "i68","part": "p2","partTitle": "第二部分 · 固体散装货物运输（核心）","color": "#f59e0b","chapterId": "1","chapterTitle": "1 基本知识","sectionId": "1.9","sectionTitle": "1.9 易流态化货物 参数检测程序","groupTitle": "","k": "水分含量 测定程序","lv": 1,"note": "IMSBC 8.2","extra": ""},{"id": "i69","part": "p2","partTitle": "第二部分 · 固体散装货物运输（核心）","color": "#f59e0b","chapterId": "1","chapterTitle": "1 基本知识","sectionId": "1.9","sectionTitle": "1.9 易流态化货物 参数检测程序","groupTitle": "","k": "适运水分极限 测定方法","lv": 1,"note": "IMSBC 8.3","extra": ""},{"id": "i70","part": "p2","partTitle": "第二部分 · 固体散装货物运输（核心）","color": "#f59e0b","chapterId": "1","chapterTitle": "1 基本知识","sectionId": "1.9","sectionTitle": "1.9 易流态化货物 参数检测程序","groupTitle": "","k": "流态化可能性 补充测试","lv": 2,"note": "IMSBC 8.4","extra": ""},{"id": "i71","part": "p2","partTitle": "第二部分 · 固体散装货物运输（核心）","color": "#f59e0b","chapterId": "1","chapterTitle": "1 基本知识","sectionId": "1.10","sectionTitle": "1.10 平舱要求","groupTitle": "","k": "平舱的一般规定 + 多层甲板船 特殊规定","lv": 2,"note": "IMSBC 5.1、5.2","extra": ""},{"id": "i72","part": "p2","partTitle": "第二部分 · 固体散装货物运输（核心）","color": "#f59e0b","chapterId": "1","chapterTitle": "1 基本知识","sectionId": "1.10","sectionTitle": "1.10 平舱要求","groupTitle": "","k": "黏性散装货物 特殊要求","lv": 2,"note": "IMSBC 5.3","extra": ""},{"id": "i73","part": "p2","partTitle": "第二部分 · 固体散装货物运输（核心）","color": "#f59e0b","chapterId": "1","chapterTitle": "1 基本知识","sectionId": "1.10","sectionTitle": "1.10 平舱要求","groupTitle": "","k": "非黏性散装货物 特殊要求","lv": 3,"note": "IMSBC 5.4","extra": ""},{"id": "i74","part": "p2","partTitle": "第二部分 · 固体散装货物运输（核心）","color": "#f59e0b","chapterId": "1","chapterTitle": "1 基本知识","sectionId": "1.11","sectionTitle": "1.11 静止角的确定方法","groupTitle": "","k": "静止角的确定方法","lv": 1,"note": "IMSBC 第 6 节","extra": ""},{"id": "i75","part": "p2","partTitle": "第二部分 · 固体散装货物运输（核心）","color": "#f59e0b","chapterId": "1","chapterTitle": "1 基本知识","sectionId": "1.12","sectionTitle": "1.12 散装固体废弃物运输","groupTitle": "","k": "废弃物 + 跨境转移 定义","lv": 2,"note": "IMSBC 10.2","extra": ""},{"id": "i76","part": "p2","partTitle": "第二部分 · 固体散装货物运输（核心）","color": "#f59e0b","chapterId": "1","chapterTitle": "1 基本知识","sectionId": "1.12","sectionTitle": "1.12 散装固体废弃物运输","groupTitle": "","k": "适用范围 + 跨境转移规定","lv": 2,"note": "IMSBC 10.3、10.4","extra": ""},{"id": "i77","part": "p2","partTitle": "第二部分 · 固体散装货物运输（核心）","color": "#f59e0b","chapterId": "1","chapterTitle": "1 基本知识","sectionId": "1.12","sectionTitle": "1.12 散装固体废弃物运输","groupTitle": "","k": "文件要求","lv": 1,"note": "IMSBC 10.5","extra": ""},{"id": "i78","part": "p2","partTitle": "第二部分 · 固体散装货物运输（核心）","color": "#f59e0b","chapterId": "1","chapterTitle": "1 基本知识","sectionId": "1.12","sectionTitle": "1.12 散装固体废弃物运输","groupTitle": "","k": "废弃物分类 + 事故处理程序","lv": 2,"note": "IMSBC 10.6、10.9","extra": ""},{"id": "i79","part": "p2","partTitle": "第二部分 · 固体散装货物运输（核心）","color": "#f59e0b","chapterId": "1","chapterTitle": "1 基本知识","sectionId": "1.13","sectionTitle": "1.13 货物残余物 与 洗舱水管理","groupTitle": "","k": "残余物 + 洗舱水 排放的法律规定","lv": 3,"note": "《海运固散管理规定》","extra": ""},{"id": "i80","part": "p2","partTitle": "第二部分 · 固体散装货物运输（核心）","color": "#f59e0b","chapterId": "1","chapterTitle": "1 基本知识","sectionId": "1.13","sectionTitle": "1.13 货物残余物 与 洗舱水管理","groupTitle": "","k": "对海洋环境有害的固散货物 判定标准","lv": 2,"note": "MARPOL 附则 V 附录 I","extra": ""},{"id": "i81","part": "p2","partTitle": "第二部分 · 固体散装货物运输（核心）","color": "#f59e0b","chapterId": "1","chapterTitle": "1 基本知识","sectionId": "1.13","sectionTitle": "1.13 货物残余物 与 洗舱水管理","groupTitle": "","k": "排放标准 + 记录要求","lv": 2,"note": "MARPOL 附则 V 第 3、4、6、10 条","extra": ""},{"id": "i82","part": "p2","partTitle": "第二部分 · 固体散装货物运输（核心）","color": "#f59e0b","chapterId": "1","chapterTitle": "1 基本知识","sectionId": "1.14","sectionTitle": "1.14 固散货物运输 保安规定","groupTitle": "","k": "对公司/船舶/港口设备的一般规定","lv": 1,"note": "IMSBC 11.1","extra": ""},{"id": "i83","part": "p2","partTitle": "第二部分 · 固体散装货物运输（核心）","color": "#f59e0b","chapterId": "1","chapterTitle": "1 基本知识","sectionId": "1.14","sectionTitle": "1.14 固散货物运输 保安规定","groupTitle": "","k": "对岸基人员的一般规定 + 培训要求","lv": 1,"note": "IMSBC 11.2","extra": ""},{"id": "i84","part": "p2","partTitle": "第二部分 · 固体散装货物运输（核心）","color": "#f59e0b","chapterId": "1","chapterTitle": "1 基本知识","sectionId": "1.14","sectionTitle": "1.14 固散货物运输 保安规定","groupTitle": "","k": "对后果严重固散货物的规定","lv": 2,"note": "IMSBC 11.3","extra": ""},{"id": "i85","part": "p2","partTitle": "第二部分 · 固体散装货物运输（核心）","color": "#f59e0b","chapterId": "2","chapterTitle": "2 申报或报告 实务（实操核心）","sectionId": "2.1","sectionTitle": "2.1 申报和报告要求","groupTitle": "","k": "进出港口申报和报告的 法律依据 / 主体 / 条件 / 时限 / 结果","lv": 3,"note": "","extra": ""},{"id": "i86","part": "p2","partTitle": "第二部分 · 固体散装货物运输（核心）","color": "#f59e0b","chapterId": "2","chapterTitle": "2 申报或报告 实务（实操核心）","sectionId": "2.1","sectionTitle": "2.1 申报和报告要求","groupTitle": "","k": "安全适运报告的 法律依据 / 主体","lv": 3,"note": "","extra": ""},{"id": "i87","part": "p2","partTitle": "第二部分 · 固体散装货物运输（核心）","color": "#f59e0b","chapterId": "2","chapterTitle": "2 申报或报告 实务（实操核心）","sectionId": "2.2","sectionTitle": "2.2 单证及附件要求","groupTitle": "","k": "进出港口申报和报告 附送单证","lv": 3,"note": "","extra": ""},{"id": "i88","part": "p2","partTitle": "第二部分 · 固体散装货物运输（核心）","color": "#f59e0b","chapterId": "2","chapterTitle": "2 申报或报告 实务（实操核心）","sectionId": "2.2","sectionTitle": "2.2 单证及附件要求","groupTitle": "","k": "安全适运报告 附送单证","lv": 3,"note": "","extra": ""},{"id": "i89","part": "p2","partTitle": "第二部分 · 固体散装货物运输（核心）","color": "#f59e0b","chapterId": "2","chapterTitle": "2 申报或报告 实务（实操核心）","sectionId": "2.3","sectionTitle": "2.3 单据填写要素","groupTitle": "","k": "固散货物申报单 — 填报要求 + 要素含义","lv": 3,"note": "","extra": ""},{"id": "i90","part": "p2","partTitle": "第二部分 · 固体散装货物运输（核心）","color": "#f59e0b","chapterId": "2","chapterTitle": "2 申报或报告 实务（实操核心）","sectionId": "2.3","sectionTitle": "2.3 单据填写要素","groupTitle": "","k": "安全适运声明书 — 填报要求 + 要素含义","lv": 3,"note": "","extra": ""},{"id": "i91","part": "p2","partTitle": "第二部分 · 固体散装货物运输（核心）","color": "#f59e0b","chapterId": "2","chapterTitle": "2 申报或报告 实务（实操核心）","sectionId": "2.4","sectionTitle": "2.4 适运 / 适装 / 适靠","groupTitle": "","k": "货物适运 / 船舶适装 / 码头适靠 的具体要求 + 证明材料","lv": 3,"note": "","extra": ""},{"id": "i92","part": "p2","partTitle": "第二部分 · 固体散装货物运输（核心）","color": "#f59e0b","chapterId": "2","chapterTitle": "2 申报或报告 实务（实操核心）","sectionId": "2.5","sectionTitle": "2.5 书面 + 网上申报操作","groupTitle": "","k": "运输前所需资料：适运声明书、适运水分极限证书(A 组)、水分含量证书(A 组)、未列明货物运输条件鉴定材料","lv": 2,"note": "","extra": ""},{"id": "i93","part": "p2","partTitle": "第二部分 · 固体散装货物运输（核心）","color": "#f59e0b","chapterId": "2","chapterTitle": "2 申报或报告 实务（实操核心）","sectionId": "2.5","sectionTitle": "2.5 书面 + 网上申报操作","groupTitle": "","k": "编制申报/报告单证 → 在线提交 → 跟踪结果","lv": 2,"note": "","extra": ""},{"id": "i94","part": "p2","partTitle": "第二部分 · 固体散装货物运输（核心）","color": "#f59e0b","chapterId": "2","chapterTitle": "2 申报或报告 实务（实操核心）","sectionId": "2.5","sectionTitle": "2.5 书面 + 网上申报操作","groupTitle": "","k": "向船公司/码头 传递审批信息","lv": 2,"note": "","extra": ""},{"id": "i95","part": "p3","partTitle": "第三部分 · 危险货物事故应急","color": "#ef4444","chapterId": "1","chapterTitle": "1 事故应急处理 技术和原则","sectionId": "1.x","sectionTitle": "应急程序","groupTitle": "","k": "IMSBC 固散货物明细表中 应急程序结构 + 各栏目用途","lv": 3,"note": "","extra": ""},{"id": "i96","part": "p3","partTitle": "第三部分 · 危险货物事故应急","color": "#ef4444","chapterId": "1","chapterTitle": "1 事故应急处理 技术和原则","sectionId": "1.x","sectionTitle": "应急程序","groupTitle": "","k": "固散危险货物 事故应急处理方法及操作要求","lv": 1,"note": "","extra": ""},{"id": "i97","part": "p3","partTitle": "第三部分 · 危险货物事故应急","color": "#ef4444","chapterId": "2","chapterTitle": "2 事故报告 职责、程序、内容","sectionId": "2.x","sectionTitle": "事故报告","groupTitle": "","k": "固散危险货物事故 报告相关要求","lv": 1,"note": "《监督管理规定》第 20、36 条","extra": ""}],"stats": {"1": 27,"2": 30,"3": 41},"total": 98};
+const LEVEL = {
+  1: {name: "了解", color: "#10b981", bg: "#d1fae5"},
+  2: {name: "熟悉", color: "#f59e0b", bg: "#fef3c7"},
+  3: {name: "掌握", color: "#ef4444", bg: "#fee2e2"}
+};
+const STORAGE_KEY = "liangyuan_solid_progress_v1";
+
+let state = {
+  filter: "all",
+  search: "",
+  hideMastered: false,
+  mastered: new Set(JSON.parse(localStorage.getItem(STORAGE_KEY) || "[]")),
+};
+
+function saveProgress() {
+  localStorage.setItem(STORAGE_KEY, JSON.stringify([...state.mastered]));
+}
+
+function renderStats() {
+  const el = document.getElementById("headerStats");
+  const sm = state.mastered.size;
+  el.innerHTML = `
+    <div class="header-stat"><div class="n">${DATA.total}</div><div class="l">总考点</div></div>
+    <div class="header-stat"><div class="n">${DATA.stats[3]}</div><div class="l">掌握 (必背)</div></div>
+    <div class="header-stat"><div class="n">${DATA.stats[2]}</div><div class="l">熟悉</div></div>
+    <div class="header-stat"><div class="n">${DATA.stats[1]}</div><div class="l">了解</div></div>
+    <div class="header-stat"><div class="n">${sm}</div><div class="l">已完成</div></div>
+  `;
+  document.getElementById("cnt-all").textContent = `(${DATA.total})`;
+  document.getElementById("cnt-3").textContent = `(${DATA.stats[3]})`;
+  document.getElementById("cnt-2").textContent = `(${DATA.stats[2]})`;
+  document.getElementById("cnt-1").textContent = `(${DATA.stats[1]})`;
+}
+
+function renderProgress() {
+  const sm = state.mastered.size;
+  const pct = DATA.total ? (sm / DATA.total * 100) : 0;
+  document.getElementById("progressBar").style.width = pct + "%";
+  document.getElementById("progressText").textContent = `${sm} / ${DATA.total} (${pct.toFixed(0)}%)`;
+}
+
+function buildTOC() {
+  const toc = document.getElementById("toc");
+  let html = `<h3>目录</h3>`;
+  const partMap = {};
+  DATA.items.forEach(it => {
+    if (!partMap[it.part]) partMap[it.part] = {info: DATA.parts.find(p => p.id === it.part), sections: {}};
+    const key = it.chapterId + "_" + it.sectionId;
+    if (!partMap[it.part].sections[key]) {
+      partMap[it.part].sections[key] = {chapterTitle: it.chapterTitle, sectionTitle: it.sectionTitle, id: it.part + "_" + key};
+    }
+  });
+  for (const p of DATA.parts) {
+    const pm = partMap[p.id];
+    if (!pm) continue;
+    html += `<div class="toc-part">
+      <div class="toc-part-title">
+        <div class="toc-part-dot" style="background:${p.color}"></div>
+        <span>${escapeHtml(p.title)}</span>
+      </div>`;
+    for (const k in pm.sections) {
+      const s = pm.sections[k];
+      const lbl = s.sectionTitle || s.chapterTitle;
+      html += `<div class="toc-section" data-target="${s.id}">${escapeHtml(lbl)}</div>`;
+    }
+    html += `</div>`;
+  }
+  toc.innerHTML = html;
+  toc.querySelectorAll(".toc-section").forEach(el => {
+    el.addEventListener("click", () => {
+      const target = document.getElementById(el.dataset.target);
+      if (target) {
+        target.scrollIntoView({behavior: "smooth", block: "start"});
+        toc.querySelectorAll(".toc-section").forEach(s => s.classList.remove("active"));
+        el.classList.add("active");
+      }
+    });
+  });
+}
+
+function renderContent() {
+  const content = document.getElementById("content");
+  // Group by part > chapter > section
+  const groups = {};
+  DATA.items.forEach(it => {
+    const sectionKey = it.part + "_" + it.chapterId + "_" + it.sectionId;
+    if (!groups[sectionKey]) {
+      groups[sectionKey] = {
+        sectionId: sectionKey,
+        part: DATA.parts.find(p => p.id === it.part),
+        chapterTitle: it.chapterTitle,
+        sectionTitle: it.sectionTitle,
+        items: [],
+      };
+    }
+    groups[sectionKey].items.push(it);
+  });
+
+  let html = "";
+  for (const k in groups) {
+    const g = groups[k];
+    html += `<div class="section-block" id="${g.sectionId}" data-section="${g.sectionId}">
+      <div class="section-header">
+        <span class="num">${escapeHtml(g.chapterTitle)}</span>
+        <span class="title">${escapeHtml(g.sectionTitle || "")}</span>
+        <span class="badge-part" style="background:${g.part.color}">${escapeHtml(g.part.title.split("·")[0].trim())}</span>
+      </div>`;
+
+    // Group items by groupTitle
+    const subGroups = {};
+    g.items.forEach(it => {
+      const gt = it.groupTitle || "";
+      if (!subGroups[gt]) subGroups[gt] = [];
+      subGroups[gt].push(it);
+    });
+
+    for (const gt in subGroups) {
+      if (gt) html += `<div class="group-title">${escapeHtml(gt)}</div>`;
+      subGroups[gt].forEach(it => {
+        const lvm = LEVEL[it.lv];
+        const isM = state.mastered.has(it.id);
+        html += `<div class="item ${isM ? 'mastered' : ''}" data-id="${it.id}" data-lv="${it.lv}" data-text="${escapeHtml((it.k + ' ' + (it.note||'')).toLowerCase())}">
+          <div class="item-check ${isM ? 'checked' : ''}" data-id="${it.id}"></div>
+          <div class="item-body">
+            <div class="item-title">${escapeHtml(it.k)}${it.extra ? `<span class="item-extra">${escapeHtml(it.extra)}</span>` : ''}</div>
+            ${it.note ? `<div class="item-note">${escapeHtml(it.note)}</div>` : ''}
+          </div>
+          <span class="level-badge" style="background:${lvm.bg};color:${lvm.color}">${lvm.name}</span>
+        </div>`;
+      });
+    }
+    html += `</div>`;
+  }
+  content.innerHTML = html;
+
+  content.querySelectorAll(".item-check").forEach(el => {
+    el.addEventListener("click", () => {
+      const id = el.dataset.id;
+      if (state.mastered.has(id)) state.mastered.delete(id);
+      else state.mastered.add(id);
+      saveProgress();
+      renderStats();
+      renderProgress();
+      applyFilters();
+    });
+  });
+}
+
+function applyFilters() {
+  const search = state.search.toLowerCase();
+  document.querySelectorAll(".item").forEach(el => {
+    const lv = el.dataset.lv;
+    const text = el.dataset.text;
+    const id = el.dataset.id;
+    const isM = state.mastered.has(id);
+    let show = true;
+    if (state.filter !== "all" && lv !== state.filter) show = false;
+    if (search && !text.includes(search)) show = false;
+    if (state.hideMastered && isM) show = false;
+    el.classList.toggle("hidden", !show);
+    // also update mastered class
+    el.classList.toggle("mastered", isM);
+    const check = el.querySelector(".item-check");
+    if (check) check.classList.toggle("checked", isM);
+  });
+  // Hide empty sections
+  document.querySelectorAll(".section-block").forEach(sec => {
+    const anyVisible = [...sec.querySelectorAll(".item")].some(i => !i.classList.contains("hidden"));
+    sec.classList.toggle("hidden", !anyVisible);
+  });
+}
+
+function escapeHtml(s) {
+  if (!s) return "";
+  return String(s).replace(/[&<>"']/g, c => ({"&":"&amp;","<":"&lt;",">":"&gt;","\"":"&quot;","'":"&#39;"})[c]);
+}
+
+// Wire up
+document.querySelectorAll(".filter-btn[data-lv]").forEach(b => {
+  b.addEventListener("click", () => {
+    document.querySelectorAll(".filter-btn[data-lv]").forEach(x => x.classList.remove("active"));
+    b.classList.add("active");
+    state.filter = b.dataset.lv;
+    applyFilters();
+  });
+});
+document.getElementById("search").addEventListener("input", e => {
+  state.search = e.target.value;
+  applyFilters();
+});
+document.getElementById("toggleMastered").addEventListener("click", e => {
+  state.hideMastered = !state.hideMastered;
+  e.target.classList.toggle("active", state.hideMastered);
+  e.target.textContent = state.hideMastered ? "显示已掌握" : "隐藏已掌握";
+  applyFilters();
+});
+document.getElementById("resetProgress").addEventListener("click", () => {
+  if (confirm("确认重置全部进度？此操作不可撤销。")) {
+    state.mastered.clear();
+    saveProgress();
+    renderStats();
+    renderProgress();
+    applyFilters();
+  }
+});
+
+renderStats();
+renderProgress();
+buildTOC();
+renderContent();
+applyFilters();
+</script>
+</body>
+</html>
