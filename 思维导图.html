@@ -11,32 +11,76 @@ html, body { margin: 0; height: 100%; font-family: -apple-system, BlinkMacSystem
 .topbar {
   position: fixed; top: 0; left: 0; right: 0; z-index: 10;
   background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-  color: white; padding: 10px 20px;
-  display: flex; align-items: center; gap: 16px;
+  color: white; padding: 10px 16px;
+  display: flex; align-items: center; gap: 10px;
   box-shadow: 0 2px 12px rgba(0,0,0,0.1);
   flex-wrap: wrap;
 }
-.topbar h1 { font-size: 15px; font-weight: 600; flex: 1; min-width: 200px; }
+.topbar h1 { font-size: 15px; font-weight: 600; flex: 1 1 220px; margin: 0; }
 .topbar a {
   color: white; text-decoration: none; font-size: 13px;
   border: 1px solid rgba(255,255,255,0.35); background: rgba(255,255,255,0.08);
-  padding: 5px 11px; border-radius: 6px;
+  padding: 6px 10px; border-radius: 6px; white-space: nowrap;
 }
 .topbar a:hover { background: rgba(255,255,255,0.18); }
 .legend {
-  display: flex; gap: 12px; font-size: 12px;
+  display: flex; gap: 10px; font-size: 12px;
   background: rgba(255,255,255,0.1); padding: 4px 10px; border-radius: 6px;
+  flex-wrap: wrap;
 }
 .legend span { display: flex; align-items: center; gap: 4px; }
 .dot { width: 8px; height: 8px; border-radius: 50%; display: inline-block; }
 
-#mm-container { position: absolute; top: 0; left: 0; right: 0; bottom: 0; }
+#mm-container { position: absolute; top: 0; left: 0; right: 0; bottom: 0; overflow: auto; background: #fafaf9; }
 .markmap { width: 100%; height: 100%; }
 .markmap-foreign { line-height: 1.55; font-size: 14px; }
 .markmap-foreign b { color: #1e293b; font-weight: 600; }
 .markmap-foreign a { color: #4f46e5; text-decoration: none; font-weight: 600; }
 .markmap-foreign a:hover { text-decoration: underline; }
 .mm-toolbar { background: white !important; }
+.mobile-outline { display: none; }
+@media (max-width: 640px) {
+  html, body { height: auto; min-height: 100%; overflow: auto; }
+  .topbar { padding: 8px 12px; gap: 8px; }
+  .topbar h1 { flex-basis: 100%; font-size: 14px; }
+  .topbar a { font-size: 12px; padding: 6px 9px; }
+  .legend { flex: 1 1 100%; }
+  #mm-container { display: none; }
+  .mobile-outline {
+    display: block;
+    padding: 16px 14px 28px;
+    background: #fafaf9;
+  }
+  .mobile-outline h2 {
+    margin: 18px 0 10px;
+    padding: 14px 16px;
+    border-radius: 12px;
+    background: #fff;
+    box-shadow: 0 1px 8px rgba(15, 23, 42, 0.08);
+    font-size: 17px;
+    color: #1e293b;
+  }
+  .mobile-outline h3 {
+    margin: 14px 0 8px;
+    font-size: 15px;
+    color: #4338ca;
+  }
+  .outline-item {
+    margin: 6px 0;
+    padding: 9px 10px;
+    border-radius: 8px;
+    background: #fff;
+    border: 1px solid #e5e7eb;
+    font-size: 14px;
+    line-height: 1.55;
+    color: #334155;
+    overflow-wrap: anywhere;
+  }
+  .outline-depth-1 { margin-left: 0; font-weight: 600; }
+  .outline-depth-2 { margin-left: 14px; font-size: 13px; }
+  .outline-depth-3 { margin-left: 28px; font-size: 12px; color: #64748b; }
+  .outline-item a { color: #4f46e5; text-decoration: none; font-weight: 600; }
+}
 </style>
 </head>
 <body>
@@ -51,6 +95,8 @@ html, body { margin: 0; height: 100%; font-family: -apple-system, BlinkMacSystem
   <a href="法规阅读.html">📜 法规原文</a>
   <a href="学习导图.html">📋 卡片清单</a>
 </div>
+
+<div id="mobile-outline" class="mobile-outline"></div>
 
 <div id="mm-container">
   <div class="markmap">
@@ -298,8 +344,83 @@ function fixContainerTop() {
   var mc = document.getElementById('mm-container');
   if (tb && mc) mc.style.top = tb.offsetHeight + 'px';
 }
-window.addEventListener('load', fixContainerTop);
-window.addEventListener('resize', fixContainerTop);
+function makeMobileMapReadable() {
+  if (!window.matchMedia('(max-width: 640px)').matches) return;
+  var mc = document.getElementById('mm-container');
+  var mm = document.querySelector('#mm-container .markmap');
+  var svg = document.querySelector('#mm-container svg');
+  var g = document.querySelector('#mm-container svg > g');
+  if (!mc || !mm || !svg || !g || !g.getBBox) return;
+  var box = g.getBBox();
+  var width = Math.max(1500, Math.ceil(box.width * 0.55 + 80));
+  var height = Math.max(1900, Math.ceil(box.height * 0.55 + 80));
+  mm.style.width = width + 'px';
+  mm.style.height = height + 'px';
+  svg.setAttribute('width', width);
+  svg.setAttribute('height', height);
+  svg.style.width = width + 'px';
+  svg.style.height = height + 'px';
+  var nodes = Array.prototype.slice.call(document.querySelectorAll('.markmap-foreign'));
+  if (nodes.length) {
+    var mcRect = mc.getBoundingClientRect();
+    var minLeft = nodes.reduce(function(min, node) {
+      return Math.min(min, node.getBoundingClientRect().left - mcRect.left + mc.scrollLeft);
+    }, Infinity);
+    mc.scrollLeft = Math.max(0, Math.round(minLeft - 24));
+  }
+}
+function fixMindmapLayout() {
+  fixContainerTop();
+  makeMobileMapReadable();
+  fixMobileOutlineTop();
+}
+function fixMobileOutlineTop() {
+  var tb = document.querySelector('.topbar');
+  var outline = document.getElementById('mobile-outline');
+  if (tb && outline) outline.style.marginTop = tb.offsetHeight + 'px';
+}
+function inlineMarkdown(text) {
+  return text
+    .replace(/\[([^\]]+)\]\(([^)]+)\)/g, '<a href="$2">$1</a>')
+    .replace(/\*\*([^*]+)\*\*/g, '<b>$1</b>');
+}
+function renderMobileOutline() {
+  var outline = document.getElementById('mobile-outline');
+  var tpl = document.querySelector('#mm-container script[type="text/template"]');
+  if (!outline || !tpl || outline.dataset.ready) return;
+  var html = '';
+  tpl.textContent.split('\n').forEach(function(raw) {
+    var line = raw.replace(/\s+$/, '');
+    if (!line.trim()) return;
+    if (line.indexOf('# ') === 0) return;
+    if (line.indexOf('## ') === 0) {
+      html += '<h2>' + inlineMarkdown(line.slice(3).trim()) + '</h2>';
+      return;
+    }
+    if (line.indexOf('### ') === 0) {
+      html += '<h3>' + inlineMarkdown(line.slice(4).trim()) + '</h3>';
+      return;
+    }
+    var match = line.match(/^(\s*)-\s+(.*)$/);
+    if (match) {
+      var depth = Math.min(3, Math.floor(match[1].length / 2) + 1);
+      html += '<div class="outline-item outline-depth-' + depth + '">' + inlineMarkdown(match[2].trim()) + '</div>';
+    }
+  });
+  outline.innerHTML = html;
+  outline.dataset.ready = '1';
+}
+function waitForMindmap() {
+  renderMobileOutline();
+  var tries = 0;
+  var timer = setInterval(function() {
+    tries += 1;
+    fixMindmapLayout();
+    if (tries > 40) clearInterval(timer);
+  }, 150);
+}
+window.addEventListener('load', waitForMindmap);
+window.addEventListener('resize', fixMindmapLayout);
 </script>
 <script src="https://cdn.jsdelivr.net/npm/markmap-autoloader@0.18"></script>
 </body>
