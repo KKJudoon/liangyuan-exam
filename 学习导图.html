@@ -74,7 +74,6 @@ body {
 
 /* Main grid */
 .main { display: grid; grid-template-columns: 280px 1fr; gap: 20px; }
-@media (max-width: 900px) { .main { grid-template-columns: 1fr; } }
 
 /* TOC */
 .toc {
@@ -94,6 +93,11 @@ body {
 .toc-section { font-size: 13px; padding: 5px 10px 5px 26px; color: var(--muted); cursor: pointer; border-radius: 4px; }
 .toc-section:hover { background: #f1f5f9; color: var(--text); }
 .toc-section.active { background: #eef2ff; color: #4f46e5; font-weight: 500; }
+
+@media (max-width: 900px) {
+  .main { grid-template-columns: 1fr; }
+  .toc { position: static; top: auto; }
+}
 
 /* Content */
 .content { min-width: 0; }
@@ -165,6 +169,14 @@ body {
   background: white; border-radius: 6px; cursor: pointer; color: var(--muted);
 }
 .reset-btn:hover { color: #ef4444; border-color: #ef4444; }
+
+@media (max-width: 600px) {
+  .section-block { padding: 20px 18px; }
+  .section-header { align-items: center; flex-wrap: wrap; gap: 6px 10px; }
+  .section-header .num { flex: 1 1 auto; }
+  .section-header .title { order: 3; flex: 1 0 100%; font-size: 16px; }
+  .section-header .badge-part { flex-shrink: 0; }
+}
 </style>
 </head>
 <body>
